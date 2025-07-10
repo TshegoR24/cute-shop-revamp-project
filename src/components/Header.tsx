@@ -8,7 +8,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount] = useState(3);
 
-  const categories = ["New Arrivals", "Accessories", "Jewelry", "Bags", "Home Decor", "Sale"];
+  const categories = ["New Arrivals", "Girls", "Boys", "Accessories", "Jewelry", "Bags", "Home Decor", "Sale"];
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border shadow-sm">

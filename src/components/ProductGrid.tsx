@@ -15,6 +15,7 @@ const sampleProducts = [
     rating: 5,
     reviews: 127,
     category: "Jewelry",
+    gender: "Girls",
     isNew: true,
     isSale: true
   },
@@ -26,6 +27,7 @@ const sampleProducts = [
     rating: 4,
     reviews: 89,
     category: "Accessories",
+    gender: "Girls",
     isNew: true
   },
   {
@@ -37,6 +39,7 @@ const sampleProducts = [
     rating: 5,
     reviews: 203,
     category: "Accessories",
+    gender: "Girls",
     isSale: true
   },
   {
@@ -46,7 +49,8 @@ const sampleProducts = [
     image: "🐾",
     rating: 4,
     reviews: 156,
-    category: "Tech"
+    category: "Tech",
+    gender: "Girls"
   },
   {
     id: 5,
@@ -56,6 +60,7 @@ const sampleProducts = [
     rating: 5,
     reviews: 98,
     category: "Home",
+    gender: "Girls",
     isNew: true
   },
   {
@@ -67,6 +72,7 @@ const sampleProducts = [
     rating: 5,
     reviews: 76,
     category: "Jewelry",
+    gender: "Girls",
     isSale: true
   },
   {
@@ -76,7 +82,8 @@ const sampleProducts = [
     image: "🌸",
     rating: 4,
     reviews: 112,
-    category: "Accessories"
+    category: "Accessories",
+    gender: "Girls"
   },
   {
     id: 8,
@@ -85,7 +92,74 @@ const sampleProducts = [
     image: "🦋",
     rating: 4,
     reviews: 234,
-    category: "Stationery"
+    category: "Stationery",
+    gender: "Girls"
+  },
+  {
+    id: 9,
+    name: "Cool Dinosaur Backpack",
+    price: 32.99,
+    image: "🦕",
+    rating: 5,
+    reviews: 143,
+    category: "Accessories",
+    gender: "Boys",
+    isNew: true
+  },
+  {
+    id: 10,
+    name: "Robot Action Figure",
+    price: 19.99,
+    originalPrice: 25.99,
+    image: "🤖",
+    rating: 4,
+    reviews: 92,
+    category: "Toys",
+    gender: "Boys",
+    isSale: true
+  },
+  {
+    id: 11,
+    name: "Space Adventure Watch",
+    price: 27.99,
+    image: "🚀",
+    rating: 5,
+    reviews: 74,
+    category: "Accessories",
+    gender: "Boys"
+  },
+  {
+    id: 12,
+    name: "Superhero Cape Set",
+    price: 24.99,
+    image: "🦸",
+    rating: 5,
+    reviews: 187,
+    category: "Accessories",
+    gender: "Boys",
+    isNew: true
+  },
+  {
+    id: 13,
+    name: "Dragon Plushie",
+    price: 26.99,
+    originalPrice: 34.99,
+    image: "🐉",
+    rating: 5,
+    reviews: 156,
+    category: "Home",
+    gender: "Boys",
+    isSale: true
+  },
+  {
+    id: 14,
+    name: "Pirate Hat & Patch Set",
+    price: 15.99,
+    image: "🏴‍☠️",
+    rating: 4,
+    reviews: 83,
+    category: "Accessories",
+    gender: "Boys"
   }
 ];
 
@@ -93,12 +167,16 @@ export const ProductGrid = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedGender, setSelectedGender] = useState<string>("All");
 
-  const categories = ["All", "Jewelry", "Accessories", "Tech", "Home", "Stationery"];
+  const categories = ["All", "Jewelry", "Accessories", "Tech", "Home", "Stationery", "Toys"];
+  const genders = ["All", "Girls", "Boys"];
 
-  const filteredProducts = selectedCategories.length === 0 || selectedCategories.includes("All")
-    ? sampleProducts
-    : sampleProducts.filter(product => selectedCategories.includes(product.category));
+  const filteredProducts = sampleProducts.filter(product => {
+    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes("All") || selectedCategories.includes(product.category);
+    const genderMatch = selectedGender === "All" || product.gender === selectedGender;
+    return categoryMatch && genderMatch;
+  });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
@@ -143,6 +221,20 @@ export const ProductGrid = () => {
 
         {/* Filters and Controls */}
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
+          {/* Gender Filters */}
+          <div className="flex flex-wrap gap-2">
+            {genders.map((gender) => (
+              <Badge
+                key={gender}
+                variant={selectedGender === gender ? "default" : "outline"}
+                className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-3 py-1"
+                onClick={() => setSelectedGender(gender)}
+              >
+                {gender}
+              </Badge>
+            ))}
+          </div>
+          
           {/* Category Filters */}
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
