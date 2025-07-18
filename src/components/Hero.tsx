@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 export const Hero = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   // Check if mobile on component mount
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      console.log('Mobile detected:', mobile);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -18,35 +21,49 @@ export const Hero = () => {
 
   return (
     <section className="relative overflow-hidden min-h-screen flex items-center">
-      {/* Video Background */}
+      {/* Background - Video or Fallback */}
       <div className="absolute inset-0 z-0">
-        {/* Mobile fallback background */}
-        {isMobile && !isVideoLoaded && (
-          <div className="absolute inset-0 bg-gradient-dreamy"></div>
+        {/* Show video on all devices */}
+        {!videoError && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            poster="/placeholder.svg"
+            preload="auto"
+            onError={(e) => {
+              console.log('Video error:', e);
+              setVideoError(true);
+            }}
+            onLoadStart={() => console.log('Video loading started')}
+            onCanPlay={() => {
+              console.log('Video can play');
+              setIsVideoLoaded(true);
+            }}
+            onLoadedData={() => console.log('Video data loaded')}
+            onPlay={() => console.log('Video started playing')}
+            onPause={() => console.log('Video paused')}
+          >
+            <source src="/1113242_Front_view_Veil_3840x2160.mp4" type="video/mp4" />
+            <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
+          </video>
         )}
         
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          poster="/placeholder.svg"
-          preload="auto"
-          onError={(e) => console.log('Video error:', e)}
-          onLoadStart={() => console.log('Video loading started')}
-          onCanPlay={() => {
-            console.log('Video can play');
-            setIsVideoLoaded(true);
-          }}
-          onLoadedData={() => console.log('Video data loaded')}
-          onPlay={() => console.log('Video started playing')}
-          onPause={() => console.log('Video paused')}
-        >
-          <source src="/1113242_Front_view_Veil_3840x2160.mp4" type="video/mp4" />
-          <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
-        </video>
-        {/* Overlay removed for clear video visibility */}
+        {/* Fallback if video fails */}
+        {videoError && (
+          <div className="absolute inset-0 bg-gradient-dreamy">
+            {/* Animated elements for fallback */}
+            <div className="absolute inset-0">
+              <div className="absolute top-1/4 left-1/4 text-4xl opacity-20 animate-float">🌸</div>
+              <div className="absolute top-1/3 right-1/4 text-3xl opacity-30 animate-sparkle">✨</div>
+              <div className="absolute bottom-1/3 left-1/3 text-3xl opacity-25 animate-float-delay-1">🌙</div>
+              <div className="absolute bottom-1/4 right-1/3 text-4xl opacity-20 animate-float-delay-2">💫</div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl opacity-30 animate-float">🦄</div>
+            </div>
+          </div>
+        )}
       </div>
       
       <div className="container mx-auto px-6 relative z-10 w-full">
