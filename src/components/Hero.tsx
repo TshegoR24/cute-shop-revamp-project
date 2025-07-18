@@ -46,7 +46,15 @@ export const Hero = () => {
             onPlay={() => console.log('Video started playing')}
             onPause={() => console.log('Video paused')}
           >
-            <source src="/1113242_Front_view_Veil_3840x2160.mp4" type="video/mp4" />
+            {/* Mobile-optimized video */}
+            {isMobile && (
+              <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
+            )}
+            {/* Desktop high-quality video */}
+            {!isMobile && (
+              <source src="/1113242_Front_view_Veil_3840x2160.mp4" type="video/mp4" />
+            )}
+            {/* Fallback for both */}
             <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
           </video>
         )}
