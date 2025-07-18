@@ -3,6 +3,7 @@ import { Search, ShoppingBag, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Logo } from "./Logo";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,9 +27,7 @@ export const Header = () => {
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
-            <h1 className="text-2xl font-light tracking-wide text-foreground ml-2 md:ml-0">
-              All Things Cute
-            </h1>
+            <Logo />
           </div>
 
           {/* Navigation - Desktop */}
