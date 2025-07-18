@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Gift } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -12,57 +12,57 @@ export const NewsletterSection = () => {
     e.preventDefault();
     if (email) {
       toast({
-        title: "Success! 🎉",
-        description: "You've been subscribed to our newsletter. Check your email for a special discount!",
+        title: "Welcome to All Things Cute",
+        description: "You've been subscribed to our newsletter. Check your email for exclusive updates.",
       });
       setEmail("");
     }
   };
 
   return (
-    <section className="py-16 bg-gradient-to-r from-primary to-accent">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-muted/30 border-t border-border/50">
+      <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center mb-6">
-            <div className="bg-white/20 p-4 rounded-full">
-              <Gift className="h-8 w-8 text-white" />
+          <div className="flex justify-center mb-8">
+            <div className="bg-gradient-dreamy p-6 rounded-none">
+              <Mail className="h-8 w-8 text-foreground" />
             </div>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Get 15% Off Your First Order!
+          <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6 tracking-wide">
+            Stay Cozy & Cute
           </h2>
           
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter and be the first to know about new arrivals, 
-            exclusive deals, and cute surprises delivered straight to your inbox.
+          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+            Subscribe to our newsletter and be the first to discover new nightwear collections, 
+            exclusive offers, and adorable pieces delivered to your inbox.
           </p>
 
           <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <div className="relative flex-1">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <Input
                   type="email"
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="pl-10 bg-white/95 border-0 text-foreground placeholder:text-gray-500 rounded-full h-12"
+                  className="bg-background border-border/50 text-foreground placeholder:text-muted-foreground rounded-none h-14 font-light"
                 />
               </div>
               <Button 
                 type="submit" 
                 size="lg"
-                className="bg-white text-primary hover:bg-white/90 px-8 rounded-full font-semibold"
+                className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 rounded-none font-light tracking-wide"
               >
                 Subscribe
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </form>
 
-          <p className="text-white/70 text-sm mt-4">
-            No spam, unsubscribe at any time. Your email is safe with us! 💕
+          <p className="text-muted-foreground text-sm mt-6 font-light">
+            No spam, unsubscribe at any time. Your privacy is our priority.
           </p>
         </div>
       </div>

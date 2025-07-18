@@ -8,158 +8,92 @@ import { ProductCard } from "./ProductCard";
 const sampleProducts = [
   {
     id: 1,
-    name: "Kawaii Pink Heart Earrings",
-    price: 24.99,
-    originalPrice: 34.99,
-    image: "💕",
+    name: "Floral Pajama Set",
+    price: 49.99,
+    originalPrice: 69.99,
+    image: "🌸",
     rating: 5,
     reviews: 127,
-    category: "Jewelry",
-    gender: "Girls",
+    category: "Ladies",
+    gender: "Ladies",
     isNew: true,
     isSale: true
   },
   {
     id: 2,
-    name: "Pastel Rainbow Hair Clips Set",
-    price: 18.99,
-    image: "🌈",
+    name: "Cotton Sleep Dress",
+    price: 39.99,
+    image: "🌙",
     rating: 4,
     reviews: 89,
-    category: "Accessories",
-    gender: "Girls",
+    category: "Ladies",
+    gender: "Ladies",
     isNew: true
   },
   {
     id: 3,
-    name: "Unicorn Plush Keychain",
-    price: 12.99,
-    originalPrice: 16.99,
-    image: "🦄",
+    name: "Silk Robe",
+    price: 79.99,
+    originalPrice: 99.99,
+    image: "✨",
     rating: 5,
     reviews: 203,
-    category: "Accessories",
-    gender: "Girls",
+    category: "Ladies",
+    gender: "Ladies",
     isSale: true
   },
   {
     id: 4,
-    name: "Cat Paw Phone Case",
+    name: "Kids Dinosaur PJs",
     price: 29.99,
-    image: "🐾",
+    image: "🦕",
     rating: 4,
     reviews: 156,
-    category: "Tech",
-    gender: "Girls"
+    category: "Little Boys",
+    gender: "Little Boys"
   },
   {
     id: 5,
-    name: "Strawberry Milk Tumbler",
-    price: 22.99,
-    image: "🍓",
+    name: "Princess Nightgown",
+    price: 34.99,
+    image: "👑",
     rating: 5,
     reviews: 98,
-    category: "Home",
-    gender: "Girls",
+    category: "Little Girls",
+    gender: "Little Girls",
     isNew: true
   },
   {
     id: 6,
-    name: "Celestial Moon Necklace",
-    price: 39.99,
-    originalPrice: 49.99,
-    image: "🌙",
+    name: "Unicorn Pajama Set",
+    price: 32.99,
+    originalPrice: 44.99,
+    image: "🦄",
     rating: 5,
     reviews: 76,
-    category: "Jewelry",
-    gender: "Girls",
+    category: "Little Girls",
+    gender: "Little Girls",
     isSale: true
   },
   {
     id: 7,
-    name: "Cherry Blossom Hair Band",
-    price: 15.99,
-    image: "🌸",
+    name: "Cozy Loungewear Set",
+    price: 59.99,
+    image: "☁️",
     rating: 4,
     reviews: 112,
-    category: "Accessories",
-    gender: "Girls"
+    category: "Loungewear",
+    gender: "Ladies"
   },
   {
     id: 8,
-    name: "Pastel Butterfly Stickers",
-    price: 8.99,
-    image: "🦋",
-    rating: 4,
-    reviews: 234,
-    category: "Stationery",
-    gender: "Girls"
-  },
-  {
-    id: 9,
-    name: "Cool Dinosaur Backpack",
-    price: 32.99,
-    image: "🦕",
-    rating: 5,
-    reviews: 143,
-    category: "Accessories",
-    gender: "Boys",
-    isNew: true
-  },
-  {
-    id: 10,
-    name: "Robot Action Figure",
-    price: 19.99,
-    originalPrice: 25.99,
-    image: "🤖",
-    rating: 4,
-    reviews: 92,
-    category: "Toys",
-    gender: "Boys",
-    isSale: true
-  },
-  {
-    id: 11,
-    name: "Space Adventure Watch",
+    name: "Space Hero PJs",
     price: 27.99,
     image: "🚀",
-    rating: 5,
-    reviews: 74,
-    category: "Accessories",
-    gender: "Boys"
-  },
-  {
-    id: 12,
-    name: "Superhero Cape Set",
-    price: 24.99,
-    image: "🦸",
-    rating: 5,
-    reviews: 187,
-    category: "Accessories",
-    gender: "Boys",
-    isNew: true
-  },
-  {
-    id: 13,
-    name: "Dragon Plushie",
-    price: 26.99,
-    originalPrice: 34.99,
-    image: "🐉",
-    rating: 5,
-    reviews: 156,
-    category: "Home",
-    gender: "Boys",
-    isSale: true
-  },
-  {
-    id: 14,
-    name: "Pirate Hat & Patch Set",
-    price: 15.99,
-    image: "🏴‍☠️",
     rating: 4,
-    reviews: 83,
-    category: "Accessories",
-    gender: "Boys"
+    reviews: 234,
+    category: "Little Boys",
+    gender: "Little Boys"
   }
 ];
 
@@ -169,8 +103,8 @@ export const ProductGrid = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedGender, setSelectedGender] = useState<string>("All");
 
-  const categories = ["All", "Jewelry", "Accessories", "Tech", "Home", "Stationery", "Toys"];
-  const genders = ["All", "Girls", "Boys"];
+  const categories = ["All", "Ladies", "Little Girls", "Little Boys", "Sleepwear", "Loungewear"];
+  const genders = ["All", "Ladies", "Little Girls", "Little Boys"];
 
   const filteredProducts = sampleProducts.filter(product => {
     const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes("All") || selectedCategories.includes(product.category);
@@ -207,52 +141,61 @@ export const ProductGrid = () => {
   };
 
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-background">
+      <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Featured Products
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6 tracking-wide">
+            Sweet Dreams Collection
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our handpicked collection of the cutest accessories and items that will make your day brighter
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
+            Discover adorable nightwear for ladies, little girls, and little boys. 
+            Cozy, comfortable, and absolutely cute!
           </p>
         </div>
 
         {/* Filters and Controls */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
+        <div className="flex flex-col lg:flex-row gap-8 mb-12">
           {/* Gender Filters */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {genders.map((gender) => (
-              <Badge
-                key={gender}
-                variant={selectedGender === gender ? "default" : "outline"}
-                className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-3 py-1"
-                onClick={() => setSelectedGender(gender)}
-              >
-                {gender}
-              </Badge>
+                          <Badge
+              key={gender}
+              variant={selectedGender === gender ? "default" : "outline"}
+              className={`cursor-pointer transition-colors px-4 py-2 font-light tracking-wide ${
+                selectedGender === gender 
+                  ? "bg-lavender text-foreground hover:bg-pink" 
+                  : "border-lavender text-lavender hover:bg-lavender hover:text-foreground"
+              }`}
+              onClick={() => setSelectedGender(gender)}
+            >
+              {gender}
+            </Badge>
             ))}
           </div>
           
           {/* Category Filters */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {categories.map((category) => (
-              <Badge
-                key={category}
-                variant={selectedCategories.includes(category) || (category === "All" && selectedCategories.length === 0) ? "default" : "outline"}
-                className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-3 py-1"
-                onClick={() => toggleCategory(category)}
-              >
-                {category}
-              </Badge>
+                          <Badge
+              key={category}
+              variant={selectedCategories.includes(category) || (category === "All" && selectedCategories.length === 0) ? "default" : "outline"}
+              className={`cursor-pointer transition-colors px-4 py-2 font-light tracking-wide ${
+                selectedCategories.includes(category) || (category === "All" && selectedCategories.length === 0)
+                  ? "bg-pink text-foreground hover:bg-blue" 
+                  : "border-pink text-pink hover:bg-pink hover:text-foreground"
+              }`}
+              onClick={() => toggleCategory(category)}
+            >
+              {category}
+            </Badge>
             ))}
           </div>
 
           <div className="flex items-center gap-4 ml-auto">
             {/* Sort Dropdown */}
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[180px] border-border/50">
                 <SlidersHorizontal className="h-4 w-4 mr-2" />
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
@@ -266,12 +209,12 @@ export const ProductGrid = () => {
             </Select>
 
             {/* View Mode Toggle */}
-            <div className="flex border border-border rounded-md">
+            <div className="flex border border-border/50 rounded-none">
               <Button
                 variant={viewMode === "grid" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setViewMode("grid")}
-                className="rounded-r-none"
+                className="rounded-none border-r border-border/50"
               >
                 <Grid3X3 className="h-4 w-4" />
               </Button>
@@ -279,7 +222,7 @@ export const ProductGrid = () => {
                 variant={viewMode === "list" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setViewMode("list")}
-                className="rounded-l-none"
+                className="rounded-none"
               >
                 <List className="h-4 w-4" />
               </Button>
@@ -288,7 +231,7 @@ export const ProductGrid = () => {
         </div>
 
         {/* Products Grid */}
-        <div className={`grid gap-6 ${
+        <div className={`grid gap-8 ${
           viewMode === "grid" 
             ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
             : "grid-cols-1"
@@ -299,13 +242,13 @@ export const ProductGrid = () => {
         </div>
 
         {/* Load More Button */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
           <Button 
             variant="outline" 
             size="lg"
-            className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            className="border border-foreground/20 text-foreground hover:bg-foreground hover:text-background px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
           >
-            Load More Products
+            View All Products
           </Button>
         </div>
       </div>

@@ -1,88 +1,86 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-secondary via-accent to-primary/20 py-20 md:py-32">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-20 h-20 bg-primary rounded-full blur-xl"></div>
-        <div className="absolute top-32 right-20 w-32 h-32 bg-accent rounded-full blur-2xl"></div>
-        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-primary/60 rounded-full blur-xl"></div>
+    <section className="relative overflow-hidden min-h-screen flex items-center">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          poster="/placeholder.svg"
+          preload="auto"
+          onError={(e) => console.log('Video error:', e)}
+          onLoadStart={() => console.log('Video loading started')}
+          onCanPlay={() => console.log('Video can play')}
+        >
+          <source src="/1113242_Front_view_Veil_3840x2160.mp4" type="video/mp4" />
+          <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
+        </video>
+        {/* Overlay removed for clear video visibility */}
       </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      
+      <div className="container mx-auto px-6 relative z-10 w-full">
+        <div className="flex justify-center items-center">
           {/* Hero Content */}
-          <div className="text-center md:text-left">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-2 text-sm font-medium mb-6">
-              <Sparkles className="h-4 w-4" />
-              New Collection Available
+          <div className="text-center md:text-left animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 text-muted-foreground text-sm font-light tracking-wide mb-8">
+              <div className="w-1 h-1 bg-foreground rounded-full"></div>
+              Cozy Nightwear Collection
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Discover Your
-              <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Cute Side
+            <h1 className="text-5xl md:text-7xl font-light text-foreground mb-8 leading-tight tracking-wide">
+              Sweet Dreams
+              <span className="block font-normal">
+                Begin Here
               </span>
             </h1>
             
-            <p className="text-lg text-muted-foreground mb-8 max-w-md mx-auto md:mx-0">
-              From adorable accessories to kawaii home decor, find everything that makes you smile. 
-              Curated with love for the cutest souls.
+            <p className="text-lg text-muted-foreground mb-12 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
+              Discover adorable nightwear for the whole family. From cozy pajamas to 
+              cute sleepwear, make bedtime the sweetest part of the day.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300 hover-lift"
               >
-                Shop Now
-                <ArrowRight className="ml-2 h-5 w-5" />
+                Shop Nightwear
+                <ArrowRight className="ml-3 h-5 w-5" />
               </Button>
               
               <Button 
                 variant="outline" 
                 size="lg"
-                className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                className="border border-foreground/20 text-foreground hover:bg-foreground hover:text-background px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
               >
                 View Collections
               </Button>
             </div>
 
-            {/* Trust badges */}
-            <div className="flex items-center justify-center md:justify-start gap-6 mt-8 text-sm text-muted-foreground">
+            {/* Trust indicators */}
+            <div className="flex items-center justify-center md:justify-start gap-8 mt-12 text-sm text-muted-foreground font-light">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="w-1 h-1 bg-foreground/40 rounded-full"></div>
                 Free Shipping
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                30-Day Returns
+                <div className="w-1 h-1 bg-foreground/40 rounded-full"></div>
+                Quality Guaranteed
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <div className="w-1 h-1 bg-foreground/40 rounded-full"></div>
                 Secure Checkout
               </div>
             </div>
           </div>
 
-          {/* Hero Image */}
-          <div className="relative">
-            <div className="relative bg-gradient-to-br from-white to-accent/20 rounded-3xl p-8 shadow-2xl">
-              <div className="aspect-square bg-gradient-to-br from-primary/10 to-accent/20 rounded-2xl flex items-center justify-center">
-                <div className="text-8xl">🎀</div>
-              </div>
-              
-              {/* Floating badges */}
-              <div className="absolute -top-4 -right-4 bg-white rounded-full p-3 shadow-lg">
-                <div className="text-2xl">✨</div>
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-full p-3 shadow-lg">
-                <div className="text-2xl">💕</div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
