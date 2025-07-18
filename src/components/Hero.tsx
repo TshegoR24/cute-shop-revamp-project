@@ -1,11 +1,30 @@
+import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Hero = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile on component mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className="relative overflow-hidden min-h-screen flex items-center">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
+        {/* Mobile fallback background */}
+        {isMobile && !isVideoLoaded && (
+          <div className="absolute inset-0 bg-gradient-dreamy"></div>
+        )}
+        
         <video
           autoPlay
           muted
@@ -16,7 +35,13 @@ export const Hero = () => {
           preload="auto"
           onError={(e) => console.log('Video error:', e)}
           onLoadStart={() => console.log('Video loading started')}
-          onCanPlay={() => console.log('Video can play')}
+          onCanPlay={() => {
+            console.log('Video can play');
+            setIsVideoLoaded(true);
+          }}
+          onLoadedData={() => console.log('Video data loaded')}
+          onPlay={() => console.log('Video started playing')}
+          onPause={() => console.log('Video paused')}
         >
           <source src="/1113242_Front_view_Veil_3840x2160.mp4" type="video/mp4" />
           <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
