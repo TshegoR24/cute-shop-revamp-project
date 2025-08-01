@@ -1,20 +1,32 @@
-import { Heart, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
-export const Logo = () => {
+interface LogoProps {
+  isOverHero?: boolean;
+}
+
+export const Logo = ({ isOverHero = false }: LogoProps) => {
   return (
     <div className="flex items-center gap-2">
       {/* Decorative element */}
       <div className="relative">
-        <Heart className="h-6 w-6 text-pink animate-pulse" />
-        <Sparkles className="h-3 w-3 text-lavender absolute -top-1 -right-1 animate-sparkle" />
+        <div className={`h-6 w-6 animate-pulse text-2xl transition-colors duration-300 ${
+          isOverHero ? 'text-white' : 'text-pink'
+        }`}>🎀</div>
+        <Sparkles className={`h-3 w-3 absolute -top-1 -right-1 animate-sparkle transition-colors duration-300 ${
+          isOverHero ? 'text-white/80' : 'text-lavender'
+        }`} />
       </div>
-      
+
       {/* Logo text */}
       <div className="flex items-center">
-        <h1 className="text-2xl font-light tracking-wide text-foreground">
+        <h1 className={`text-2xl font-light tracking-wide transition-colors duration-300 ${
+          isOverHero ? 'text-white' : 'text-foreground'
+        }`}>
           All Things
         </h1>
-        <span className="text-2xl font-normal tracking-wide text-pink ml-2">
+        <span className={`text-2xl font-normal tracking-wide ml-2 transition-colors duration-300 ${
+          isOverHero ? 'text-pink-300' : 'text-pink'
+        }`}>
           Cute
         </span>
       </div>

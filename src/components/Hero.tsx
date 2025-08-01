@@ -20,8 +20,8 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="relative overflow-hidden min-h-screen flex items-center">
-      {/* Background - Video or Fallback */}
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Hero Video Background - Full viewport height to extend behind navbar */}
       <div className="absolute inset-0 z-0">
         {/* Show video on all devices */}
         {!videoError && (
@@ -74,63 +74,67 @@ export const Hero = () => {
         )}
       </div>
       
-      <div className="container mx-auto px-6 relative z-10 w-full">
-        <div className="flex justify-center items-center">
-          {/* Hero Content */}
-          <div className="text-center md:text-left animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 text-muted-foreground text-sm font-light tracking-wide mb-8">
-              <div className="w-1 h-1 bg-foreground rounded-full"></div>
-              Cozy Nightwear Collection
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-light text-foreground mb-8 leading-tight tracking-wide">
-              Sweet Dreams
-              <span className="block font-normal">
-                Begin Here
-              </span>
-            </h1>
-            
-            <p className="text-lg text-muted-foreground mb-12 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
-              Discover adorable nightwear for the whole family. From cozy pajamas to 
-              cute sleepwear, make bedtime the sweetest part of the day.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
-              <Button 
-                size="lg" 
-                className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300 hover-lift"
-              >
-                Shop Nightwear
-                <ArrowRight className="ml-3 h-5 w-5" />
-              </Button>
+      {/* Optional overlay for better text contrast */}
+      <div className="absolute inset-0 bg-black/20 z-10" />
+      
+      {/* Hero Content - Positioned to account for navbar height */}
+      <div className="relative z-20 h-full flex items-center justify-center">
+        <div className="container mx-auto px-6 w-full">
+          <div className="flex justify-center items-center pt-20"> {/* pt-20 accounts for navbar height */}
+            {/* Hero Content */}
+            <div className="text-center md:text-left animate-fade-in-up">
+              <div className="inline-flex items-center gap-2 text-white/80 text-sm font-light tracking-wide mb-8">
+                <div className="w-1 h-1 bg-white rounded-full"></div>
+                Cozy Nightwear Collection
+              </div>
               
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border border-foreground/20 text-foreground hover:bg-foreground hover:text-background px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
-              >
-                View Collections
-              </Button>
-            </div>
+              <h1 className="text-5xl md:text-7xl font-light text-white mb-8 leading-tight tracking-wide">
+                Sweet Dreams
+                <span className="block font-normal">
+                  Begin Here
+                </span>
+              </h1>
+              
+              <p className="text-lg text-white/90 mb-12 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
+                Discover adorable nightwear for the whole family. From cozy pajamas to 
+                cute sleepwear, make bedtime the sweetest part of the day.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
+                <Button 
+                  size="lg" 
+                  className="bg-white text-foreground hover:bg-white/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300 hover-lift"
+                >
+                  Shop Nightwear
+                  <ArrowRight className="ml-3 h-5 w-5" />
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="border border-white/30 text-white hover:bg-white hover:text-foreground px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
+                >
+                  View Collections
+                </Button>
+              </div>
 
-            {/* Trust indicators */}
-            <div className="flex items-center justify-center md:justify-start gap-8 mt-12 text-sm text-muted-foreground font-light">
-              <div className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-foreground/40 rounded-full"></div>
-                Free Shipping
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-foreground/40 rounded-full"></div>
-                Quality Guaranteed
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-foreground/40 rounded-full"></div>
-                Secure Checkout
+              {/* Trust indicators */}
+              <div className="flex items-center justify-center md:justify-start gap-8 mt-12 text-sm text-white/70 font-light">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                  Free Shipping
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                  Quality Guaranteed
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                  Secure Checkout
+                </div>
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </section>

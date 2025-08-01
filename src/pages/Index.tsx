@@ -9,8 +9,11 @@ import { Footer } from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      <Hero />
+      {/* Hero section with video background that extends behind navbar */}
+      <div className="relative">
+        <Hero />
+        <Header />
+      </div>
       <ProductGrid />
       <FeaturesSection />
       <TestimonialsSection />
