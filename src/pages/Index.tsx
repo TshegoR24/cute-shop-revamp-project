@@ -4,6 +4,7 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { FeaturesSection } from "@/components/FeaturesSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
+import { RegionalInfo } from "@/components/RegionalInfo";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
@@ -17,6 +18,7 @@ const Index = () => {
       <ProductGrid />
       <FeaturesSection />
       <TestimonialsSection />
+      <RegionalInfo />
       <NewsletterSection />
       <Footer />
     </div>

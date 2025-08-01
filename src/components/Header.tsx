@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Logo } from "./Logo";
+import { LocaleSelector } from "./LocaleSelector";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -90,6 +91,7 @@ export const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
+            <LocaleSelector />
             <Button 
               variant="ghost" 
               size="icon" 

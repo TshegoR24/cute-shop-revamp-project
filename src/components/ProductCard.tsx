@@ -3,6 +3,7 @@ import { Heart, ShoppingBag, Star, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLocale } from "@/contexts/LocaleContext";
 
 interface Product {
   id: number;
@@ -22,6 +23,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+  const { formatCurrency } = useLocale();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -119,11 +121,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         {/* Price */}
         <div className="flex items-center gap-3">
           <span className="text-xl font-light text-foreground">
-            ${product.price.toFixed(2)}
+            {formatCurrency(product.price)}
           </span>
           {product.originalPrice && (
             <span className="text-sm text-muted-foreground line-through font-light">
-              ${product.originalPrice.toFixed(2)}
+              {formatCurrency(product.originalPrice)}
             </span>
           )}
         </div>

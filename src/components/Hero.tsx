@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export const Hero = () => {
+  const { getText } = useLocale();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [videoError, setVideoError] = useState(false);
@@ -89,15 +91,11 @@ export const Hero = () => {
               </div>
               
               <h1 className="text-5xl md:text-7xl font-light text-white mb-8 leading-tight tracking-wide">
-                Sweet Dreams
-                <span className="block font-normal">
-                  Begin Here
-                </span>
+                {getText('hero.title')}
               </h1>
               
               <p className="text-lg text-white/90 mb-12 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
-                Discover adorable nightwear for the whole family. From cozy pajamas to 
-                cute sleepwear, make bedtime the sweetest part of the day.
+                {getText('hero.subtitle')}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
@@ -105,7 +103,7 @@ export const Hero = () => {
                   size="lg" 
                   className="bg-white text-foreground hover:bg-white/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300 hover-lift"
                 >
-                  Shop Nightwear
+                  {getText('hero.cta.primary')}
                   <ArrowRight className="ml-3 h-5 w-5" />
                 </Button>
                 
@@ -114,7 +112,7 @@ export const Hero = () => {
                   size="lg"
                   className="border border-white/30 text-white hover:bg-white hover:text-foreground px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
                 >
-                  View Collections
+                  {getText('hero.cta.secondary')}
                 </Button>
               </div>
 
@@ -122,15 +120,15 @@ export const Hero = () => {
               <div className="flex items-center justify-center md:justify-start gap-8 mt-12 text-sm text-white/70 font-light">
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  Free Shipping
+                  {getText('trust.freeShipping')}
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  Quality Guaranteed
+                  {getText('trust.qualityGuaranteed')}
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  Secure Checkout
+                  {getText('trust.secureCheckout')}
                 </div>
               </div>
             </div>

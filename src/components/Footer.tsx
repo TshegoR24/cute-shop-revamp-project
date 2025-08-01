@@ -2,8 +2,10 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from "luci
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export const Footer = () => {
+  const { getText, config } = useLocale();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -13,11 +15,10 @@ export const Footer = () => {
           {/* Brand Section */}
           <div>
             <h3 className="text-2xl font-light tracking-wide mb-6 text-foreground">
-              All Things Cute
+              {getText('footer.brandName')}
             </h3>
             <p className="text-muted-foreground mb-8 leading-relaxed font-light">
-              Cozy nightwear that brings sweet dreams to life. 
-              Each piece is designed with comfort and cuteness in mind.
+              {getText('footer.brandDescription')}
             </p>
             <div className="flex space-x-4">
               <Button variant="outline" size="icon" className="border-border/50 hover:bg-foreground hover:text-background">
@@ -37,7 +38,7 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-light tracking-wide mb-6 text-foreground">Quick Links</h4>
+            <h4 className="text-lg font-light tracking-wide mb-6 text-foreground">{getText('footer.quickLinks')}</h4>
             <ul className="space-y-4">
               {["New Arrivals", "Best Sellers", "Sale", "Gift Cards", "Size Guide", "Care Instructions"].map((link) => (
                 <li key={link}>
@@ -51,7 +52,7 @@ export const Footer = () => {
 
           {/* Customer Service */}
           <div>
-            <h4 className="text-lg font-light tracking-wide mb-6 text-foreground">Customer Service</h4>
+            <h4 className="text-lg font-light tracking-wide mb-6 text-foreground">{getText('footer.customerService')}</h4>
             <ul className="space-y-4">
               {["Contact Us", "FAQ", "Shipping Info", "Returns & Exchanges", "Track Your Order", "Privacy Policy"].map((link) => (
                 <li key={link}>
@@ -65,38 +66,38 @@ export const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-light tracking-wide mb-6 text-foreground">Get In Touch</h4>
+            <h4 className="text-lg font-light tracking-wide mb-6 text-foreground">{getText('footer.getInTouch')}</h4>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-muted-foreground" />
                 <span className="text-muted-foreground text-sm font-light">
-                  123 Elegance Street, Style City, SC 12345
+                  {config.contact.address}
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-muted-foreground" />
                 <span className="text-muted-foreground text-sm font-light">
-                  +1 (555) 123-STYLE
+                  {config.contact.phone}
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-muted-foreground" />
                 <span className="text-muted-foreground text-sm font-light">
-                  hello@velaa.com
+                  {config.contact.email}
                 </span>
               </div>
             </div>
 
             {/* Newsletter Signup */}
             <div className="mt-8">
-              <h5 className="font-light tracking-wide mb-4 text-foreground">Stay Updated</h5>
+              <h5 className="font-light tracking-wide mb-4 text-foreground">{getText('footer.stayUpdated')}</h5>
               <div className="flex gap-3">
                 <Input 
-                  placeholder="Your email" 
+                  placeholder={getText('footer.newsletterPlaceholder')}
                   className="bg-background border-border/50 text-foreground placeholder:text-muted-foreground font-light"
                 />
                 <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90 font-light tracking-wide">
-                  Join
+                  {getText('footer.join')}
                 </Button>
               </div>
             </div>
@@ -108,13 +109,11 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2 text-muted-foreground font-light">
-            <span>Crafted with</span>
-            <span className="text-foreground">love</span>
-            <span>for sweet dreams</span>
+            <span>{getText('footer.craftedWith')}</span>
           </div>
           
           <div className="text-muted-foreground text-sm font-light">
-            © {currentYear} All Things Cute. All rights reserved.
+            © {currentYear} {getText('footer.brandName')}. All rights reserved.
           </div>
         </div>
       </div>

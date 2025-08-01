@@ -1,5 +1,6 @@
 import { Truck, RotateCcw, Shield, Headphones, Star, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
 
 const features = [
   {
@@ -41,9 +42,54 @@ const features = [
 ];
 
 export const FeaturesSection = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
   return (
-    <section className="py-24 bg-muted/20">
-      <div className="container mx-auto px-6">
+    <section className="relative py-24 overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        {!videoError && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            poster="/placeholder.svg"
+            preload="auto"
+            onError={(e) => {
+              console.log('Features video error:', e);
+              setVideoError(true);
+            }}
+            onCanPlay={() => {
+              console.log('Features video can play');
+              setIsVideoLoaded(true);
+            }}
+          >
+            <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
+          </video>
+        )}
+        
+        {/* Fallback if video fails */}
+        {videoError && (
+          <div className="absolute inset-0 bg-gradient-dreamy">
+            {/* Animated elements for fallback */}
+            <div className="absolute inset-0">
+              <div className="absolute top-1/4 left-1/4 text-4xl opacity-20 animate-float">🌸</div>
+              <div className="absolute top-1/3 right-1/4 text-3xl opacity-30 animate-sparkle">✨</div>
+              <div className="absolute bottom-1/3 left-1/3 text-3xl opacity-25 animate-float-delay-1">🌙</div>
+              <div className="absolute bottom-1/4 right-1/3 text-4xl opacity-20 animate-float-delay-2">💫</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-10"></div>
+
+      {/* Content */}
+      <div className="relative z-20 container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6 tracking-wide">
             The All Things Cute Promise
@@ -57,7 +103,7 @@ export const FeaturesSection = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="group hover-lift transition-all duration-300 border border-lavender/30 hover:border-pink/50 bg-background"
+              className="group hover-lift transition-all duration-300 border border-lavender/30 hover:border-pink/50 bg-background/90 backdrop-blur-sm"
             >
               <CardContent className="p-8 text-center">
                 <div className="relative mb-8">
