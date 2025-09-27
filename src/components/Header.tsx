@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
-import { Search, ShoppingBag, Menu, X } from "lucide-react";
+import { Search, ShoppingBag, Menu, X, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Logo } from "./Logo";
 import { LocaleSelector } from "./LocaleSelector";
 import { Cart } from "./Cart";
+import { SearchModal } from "./SearchModal";
 import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { getTotalItems } = useCart();
+  const { wishlist } = useWishlist();
   const location = useLocation();
   const [isOverHero, setIsOverHero] = useState(true);
 
@@ -122,9 +126,33 @@ export const Header = () => {
               className={`hidden md:flex transition-colors duration-300 ${
                 isOverHero ? 'text-white hover:bg-white/10' : 'hover:bg-accent'
               }`}
+              onClick={() => setIsSearchOpen(true)}
             >
               <Search className="h-5 w-5" />
             </Button>
+            
+            {/* Wishlist Button */}
+            <Link to="/wishlist">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className={`relative transition-colors duration-300 ${
+                  isOverHero ? 'text-white hover:bg-white/10' : 'hover:bg-accent'
+                }`}
+              >
+                <Heart className="h-5 w-5" />
+                {wishlist.length > 0 && (
+                  <Badge 
+                    variant="secondary" 
+                    className={`absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs ${
+                      isOverHero ? 'bg-white text-black' : 'bg-foreground text-background'
+                    }`}
+                  >
+                    {wishlist.length}
+                  </Badge>
+                )}
+              </Button>
+            </Link>
             <Button 
               variant="ghost" 
               size="icon" 
@@ -163,6 +191,8 @@ export const Header = () => {
                   ? 'border border-white/30 focus:border-white/50 bg-white/10 text-white placeholder:text-white/60' 
                   : 'border border-border/50 focus:border-foreground/50 bg-background/50'
               }`}
+              onClick={() => setIsSearchOpen(true)}
+              readOnly
             />
           </div>
         </div>
@@ -217,6 +247,9 @@ export const Header = () => {
       
       {/* Cart Modal */}
       <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      
+      {/* Search Modal */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 };

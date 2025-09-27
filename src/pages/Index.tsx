@@ -7,6 +7,7 @@ import { NewsletterSection } from "@/components/NewsletterSection";
 import { RegionalInfo } from "@/components/RegionalInfo";
 import { Footer } from "@/components/Footer";
 import { EmailSignupPopup } from "@/components/EmailSignupPopup";
+import { BackToTop } from "@/components/BackToTop";
 
 const Index = () => {
   return (
@@ -23,6 +24,7 @@ const Index = () => {
       <NewsletterSection />
       <Footer />
       <EmailSignupPopup />
+      <BackToTop />
     </div>
   );
 };

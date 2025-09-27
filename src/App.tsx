@@ -5,12 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LocaleProvider } from "@/contexts/LocaleContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { WishlistProvider } from "@/contexts/WishlistContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { ProductDetail } from "./pages/ProductDetail";
 import Ladies from "./pages/Ladies";
 import LittleGirls from "./pages/LittleGirls";
 import Sleepwear from "./pages/Sleepwear";
+import Wishlist from "./pages/Wishlist";
 import { testLocalization } from "@/lib/localization.test";
 
 const queryClient = new QueryClient();
@@ -27,22 +29,25 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <LocaleProvider>
         <CartProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/ladies" element={<Ladies />} />
-              <Route path="/little-girls" element={<LittleGirls />} />
-              <Route path="/sleepwear" element={<Sleepwear />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </CartProvider>
+          <WishlistProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/ladies" element={<Ladies />} />
+                <Route path="/little-girls" element={<LittleGirls />} />
+                <Route path="/sleepwear" element={<Sleepwear />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+          </WishlistProvider>
+        </CartProvider>
       </LocaleProvider>
     </QueryClientProvider>
   );

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLocale } from "@/contexts/LocaleContext";
 import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 
 interface Product {
   id: number;
@@ -26,8 +27,10 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { formatCurrency } = useLocale();
   const { addToCart } = useCart();
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [isHovered, setIsHovered] = useState(false);
+  
+  const isWishlisted = isInWishlist(product.id);
 
   const discountPercentage = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -74,7 +77,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           className={`absolute top-4 right-4 bg-background/80 hover:bg-background transition-all duration-300 ${
             isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
           }`}
-          onClick={() => setIsWishlisted(!isWishlisted)}
+          onClick={() => isWishlisted ? removeFromWishlist(product.id) : addToWishlist(product)}
         >
           <Heart 
             className={`h-4 w-4 transition-colors ${
