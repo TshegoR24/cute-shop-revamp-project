@@ -5,12 +5,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "./ProductCard";
 
-const sampleProducts = [
+interface CategoryProductGridProps {
+  category: 'ladies' | 'little-girls' | 'sleepwear';
+}
+
+const ladiesProducts = [
   {
     id: 1,
-    name: "Floral Pajama Set",
-    price: 49.99,
-    originalPrice: 69.99,
+    name: "Elegant Silk Nightgown",
+    price: 79.99,
+    originalPrice: 99.99,
     image: "/DSC08764.jpg",
     rating: 5,
     reviews: 127,
@@ -22,7 +26,7 @@ const sampleProducts = [
   {
     id: 2,
     name: "Cotton Sleep Dress",
-    price: 39.99,
+    price: 49.99,
     image: "/DSC08794.jpg",
     rating: 4,
     reviews: 89,
@@ -32,9 +36,9 @@ const sampleProducts = [
   },
   {
     id: 3,
-    name: "Silk Robe",
-    price: 79.99,
-    originalPrice: 99.99,
+    name: "Luxury Robe Set",
+    price: 89.99,
+    originalPrice: 119.99,
     image: "/DSC08890.jpg",
     rating: 5,
     reviews: 203,
@@ -42,6 +46,62 @@ const sampleProducts = [
     gender: "Ladies",
     isSale: true
   },
+  {
+    id: 4,
+    name: "Cozy Loungewear Set",
+    price: 59.99,
+    image: "/DSC09025.jpg",
+    rating: 4,
+    reviews: 112,
+    category: "Ladies",
+    gender: "Ladies"
+  },
+  {
+    id: 5,
+    name: "Premium Nightwear",
+    price: 75.99,
+    image: "/DSC08561.jpg",
+    rating: 4,
+    reviews: 145,
+    category: "Ladies",
+    gender: "Ladies"
+  },
+  {
+    id: 6,
+    name: "Silk Sleep Set",
+    price: 95.99,
+    originalPrice: 125.99,
+    image: "/DSC08579.jpg",
+    rating: 5,
+    reviews: 78,
+    category: "Ladies",
+    gender: "Ladies",
+    isSale: true
+  },
+  {
+    id: 7,
+    name: "Elegant Pajama Set",
+    price: 65.99,
+    image: "/DSC08581.jpg",
+    rating: 4,
+    reviews: 134,
+    category: "Ladies",
+    gender: "Ladies"
+  },
+  {
+    id: 8,
+    name: "Luxury Nightdress",
+    price: 85.99,
+    image: "/DSC08583.jpg",
+    rating: 5,
+    reviews: 92,
+    category: "Ladies",
+    gender: "Ladies",
+    isNew: true
+  }
+];
+
+const littleGirlsProducts = [
   {
     id: 5,
     name: "Princess Nightgown",
@@ -67,23 +127,23 @@ const sampleProducts = [
   },
   {
     id: 7,
-    name: "Cozy Loungewear Set",
-    price: 59.99,
-    image: "/DSC09025.jpg",
+    name: "Fairy Tale Nightdress",
+    price: 39.99,
+    image: "/DSC08910.jpg",
     rating: 4,
-    reviews: 112,
-    category: "Loungewear",
-    gender: "Ladies"
+    reviews: 156,
+    category: "Little Girls",
+    gender: "Little Girls"
   },
   {
     id: 8,
-    name: "Elegant Nightwear",
-    price: 65.99,
-    image: "/DSC08561.jpg",
+    name: "Sparkle Sleep Set",
+    price: 29.99,
+    image: "/DSC09115.jpg",
     rating: 4,
-    reviews: 145,
-    category: "Ladies",
-    gender: "Ladies"
+    reviews: 234,
+    category: "Little Girls",
+    gender: "Little Girls"
   },
   {
     id: 9,
@@ -98,16 +158,6 @@ const sampleProducts = [
   },
   {
     id: 10,
-    name: "Comfort Pajamas",
-    price: 55.99,
-    image: "/DSC08570.jpg",
-    rating: 4,
-    reviews: 167,
-    category: "Sleepwear",
-    gender: "Ladies"
-  },
-  {
-    id: 11,
     name: "Cute Nightdress",
     price: 29.99,
     image: "/DSC08576.jpg",
@@ -117,35 +167,132 @@ const sampleProducts = [
     gender: "Little Girls"
   },
   {
+    id: 11,
+    name: "Princess Sleepwear",
+    price: 35.99,
+    image: "/DSC08607.jpg",
+    rating: 4,
+    reviews: 167,
+    category: "Little Girls",
+    gender: "Little Girls"
+  },
+  {
     id: 12,
-    name: "Luxury Sleepwear",
-    price: 89.99,
-    originalPrice: 119.99,
-    image: "/DSC08579.jpg",
+    name: "Fairy Nightgown",
+    price: 42.99,
+    image: "/DSC08611.jpg",
     rating: 5,
-    reviews: 78,
-    category: "Ladies",
-    gender: "Ladies",
-    isSale: true
+    reviews: 134,
+    category: "Little Girls",
+    gender: "Little Girls",
+    isNew: true
   }
 ];
 
-export const ProductGrid = () => {
+const sleepwearProducts = [
+  {
+    id: 9,
+    name: "Premium Cotton Pajamas",
+    price: 45.99,
+    image: "/DSC08764.jpg",
+    rating: 5,
+    reviews: 89,
+    category: "Sleepwear",
+    gender: "Ladies"
+  },
+  {
+    id: 10,
+    name: "Silk Sleep Set",
+    price: 69.99,
+    image: "/DSC08794.jpg",
+    rating: 4,
+    reviews: 67,
+    category: "Sleepwear",
+    gender: "Ladies"
+  },
+  {
+    id: 11,
+    name: "Kids Cotton PJs",
+    price: 24.99,
+    image: "/DSC08890.jpg",
+    rating: 5,
+    reviews: 123,
+    category: "Sleepwear",
+    gender: "Little Girls"
+  },
+  {
+    id: 12,
+    name: "Family Sleepwear Set",
+    price: 89.99,
+    image: "/DSC09025.jpg",
+    rating: 4,
+    reviews: 45,
+    category: "Sleepwear",
+    gender: "Ladies"
+  },
+  {
+    id: 13,
+    name: "Comfort Pajamas",
+    price: 55.99,
+    image: "/DSC08570.jpg",
+    rating: 4,
+    reviews: 167,
+    category: "Sleepwear",
+    gender: "Ladies"
+  },
+  {
+    id: 14,
+    name: "Soft Sleep Set",
+    price: 42.99,
+    image: "/DSC08581.jpg",
+    rating: 4,
+    reviews: 134,
+    category: "Sleepwear",
+    gender: "Ladies"
+  },
+  {
+    id: 15,
+    name: "Cozy Nightwear",
+    price: 38.99,
+    image: "/DSC08615.jpg",
+    rating: 5,
+    reviews: 156,
+    category: "Sleepwear",
+    gender: "Ladies"
+  },
+  {
+    id: 16,
+    name: "Premium Sleep Set",
+    price: 65.99,
+    image: "/DSC08640.jpg",
+    rating: 4,
+    reviews: 98,
+    category: "Sleepwear",
+    gender: "Ladies",
+    isNew: true
+  }
+];
+
+export const CategoryProductGrid = ({ category }: CategoryProductGridProps) => {
   const [sortBy, setSortBy] = useState("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedGender, setSelectedGender] = useState<string>("All");
 
-  const categories = ["All", "Ladies", "Little Girls", "Sleepwear"];
-  const genders = ["All", "Ladies", "Little Girls"];
+  const getProducts = () => {
+    switch (category) {
+      case 'ladies':
+        return ladiesProducts;
+      case 'little-girls':
+        return littleGirlsProducts;
+      case 'sleepwear':
+        return sleepwearProducts;
+      default:
+        return ladiesProducts;
+    }
+  };
 
-  const filteredProducts = sampleProducts.filter(product => {
-    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes("All") || selectedCategories.includes(product.category);
-    const genderMatch = selectedGender === "All" || product.gender === selectedGender;
-    return categoryMatch && genderMatch;
-  });
+  const products = getProducts();
 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
+  const sortedProducts = [...products].sort((a, b) => {
     switch (sortBy) {
       case "price-low":
         return a.price - b.price;
@@ -160,71 +307,11 @@ export const ProductGrid = () => {
     }
   });
 
-  const toggleCategory = (category: string) => {
-    if (category === "All") {
-      setSelectedCategories([]);
-      return;
-    }
-
-    setSelectedCategories(prev => 
-      prev.includes(category)
-        ? prev.filter(c => c !== category)
-        : [...prev, category]
-    );
-  };
-
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6 tracking-wide">
-            Sweet Dreams Collection
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
-            Discover adorable nightwear for ladies, little girls, and little boys. 
-            Cozy, comfortable, and absolutely cute!
-          </p>
-        </div>
-
         {/* Filters and Controls */}
         <div className="flex flex-col lg:flex-row gap-8 mb-12">
-          {/* Gender Filters */}
-          <div className="flex flex-wrap gap-3">
-            {genders.map((gender) => (
-                          <Badge
-              key={gender}
-              variant={selectedGender === gender ? "default" : "outline"}
-              className={`cursor-pointer transition-colors px-4 py-2 font-light tracking-wide ${
-                selectedGender === gender 
-                  ? "bg-lavender text-foreground hover:bg-pink" 
-                  : "border-lavender text-lavender hover:bg-lavender hover:text-foreground"
-              }`}
-              onClick={() => setSelectedGender(gender)}
-            >
-              {gender}
-            </Badge>
-            ))}
-          </div>
-          
-          {/* Category Filters */}
-          <div className="flex flex-wrap gap-3">
-            {categories.map((category) => (
-                          <Badge
-              key={category}
-              variant={selectedCategories.includes(category) || (category === "All" && selectedCategories.length === 0) ? "default" : "outline"}
-              className={`cursor-pointer transition-colors px-4 py-2 font-light tracking-wide ${
-                selectedCategories.includes(category) || (category === "All" && selectedCategories.length === 0)
-                  ? "bg-pink text-foreground hover:bg-blue" 
-                  : "border-pink text-pink hover:bg-pink hover:text-foreground"
-              }`}
-              onClick={() => toggleCategory(category)}
-            >
-              {category}
-            </Badge>
-            ))}
-          </div>
-
           <div className="flex items-center gap-4 ml-auto">
             {/* Sort Dropdown */}
             <Select value={sortBy} onValueChange={setSortBy}>

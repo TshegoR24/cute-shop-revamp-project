@@ -1,4 +1,5 @@
 import { Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface LogoProps {
   isOverHero?: boolean;
@@ -6,7 +7,7 @@ interface LogoProps {
 
 export const Logo = ({ isOverHero = false }: LogoProps) => {
   return (
-    <div className="flex items-center gap-2">
+    <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-300">
       {/* Decorative element */}
       <div className="relative">
         <div className={`h-6 w-6 animate-pulse text-2xl transition-colors duration-300 ${
@@ -30,6 +31,6 @@ export const Logo = ({ isOverHero = false }: LogoProps) => {
           Cute
         </span>
       </div>
-    </div>
+    </Link>
   );
 }; 

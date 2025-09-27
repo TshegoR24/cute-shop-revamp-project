@@ -46,9 +46,9 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
       flag: '🇳🇬'
     },
     contact: {
-      phone: '+234 1 234 5678',
-      email: 'hello@velaa.ng',
-      address: '123 Victoria Island, Lagos, Nigeria'
+      phone: '0749747975',
+      email: 'allthingscute@icloud.com',
+      address: 'Cape Town'
     },
     shipping: {
       freeThreshold: 50000, // ₦50,000
@@ -74,9 +74,9 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
       flag: '🇿🇦'
     },
     contact: {
-      phone: '+27 11 234 5678',
-      email: 'hello@velaa.co.za',
-      address: '123 Sandton, Johannesburg, South Africa'
+      phone: '0749747975',
+      email: 'allthingscute@icloud.com',
+      address: 'Cape Town'
     },
     shipping: {
       freeThreshold: 1000, // R1,000

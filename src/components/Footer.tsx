@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -21,17 +21,13 @@ export const Footer = () => {
               {getText('footer.brandDescription')}
             </p>
             <div className="flex space-x-4">
-              <Button variant="outline" size="icon" className="border-border/50 hover:bg-foreground hover:text-background">
-                <Facebook className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" className="border-border/50 hover:bg-foreground hover:text-background">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="border-border/50 hover:bg-foreground hover:text-background"
+                onClick={() => window.open('https://www.instagram.com/allthingscut8/?hl=en', '_blank')}
+              >
                 <Instagram className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" className="border-border/50 hover:bg-foreground hover:text-background">
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" className="border-border/50 hover:bg-foreground hover:text-background">
-                <Youtube className="h-4 w-4" />
               </Button>
             </div>
           </div>
