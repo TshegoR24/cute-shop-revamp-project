@@ -11,7 +11,7 @@ const sampleProducts = [
   {
     id: 1,
     name: "",
-    price: 49.99,
+    price: 850,
     originalPrice: 69.99,
     image: "/DSC08764.jpg",
     rating: 5,
@@ -24,7 +24,7 @@ const sampleProducts = [
   {
     id: 2,
     name: "",
-    price: 39.99,
+    price: 850,
     image: "/DSC08794.jpg",
     rating: 4,
     reviews: 89,
@@ -35,7 +35,7 @@ const sampleProducts = [
   {
     id: 3,
     name: "",
-    price: 79.99,
+    price: 1100,
     originalPrice: 99.99,
     image: "/DSC08890.jpg",
     rating: 5,
@@ -47,7 +47,7 @@ const sampleProducts = [
   {
     id: 5,
     name: "",
-    price: 34.99,
+    price: 2000,
     image: "/DSC09183.jpg",
     rating: 5,
     reviews: 98,
@@ -58,7 +58,7 @@ const sampleProducts = [
   {
     id: 6,
     name: "",
-    price: 32.99,
+    price: 650,
     originalPrice: 44.99,
     image: "/DSC08817.jpg",
     rating: 5,
@@ -69,8 +69,8 @@ const sampleProducts = [
   },
   {
     id: 7,
-    name: "",
-    price: 59.99,
+    name: "Key Chainz",
+    price: 350,
     image: "/DSC09025.jpg",
     rating: 4,
     reviews: 112,
@@ -80,7 +80,7 @@ const sampleProducts = [
   {
     id: 8,
     name: "",
-    price: 65.99,
+    price: 150,
     image: "/DSC08561.jpg",
     rating: 4,
     reviews: 145,
@@ -90,7 +90,7 @@ const sampleProducts = [
   {
     id: 9,
     name: "",
-    price: 45.99,
+    price: 75,
     image: "/DSC08567.jpg",
     rating: 5,
     reviews: 89,
@@ -101,7 +101,7 @@ const sampleProducts = [
   {
     id: 10,
     name: "",
-    price: 55.99,
+    price: 550,
     image: "/DSC08570.jpg",
     rating: 4,
     reviews: 167,
@@ -111,7 +111,7 @@ const sampleProducts = [
   {
     id: 11,
     name: "",
-    price: 29.99,
+    price: 2000,
     image: "/DSC08576.jpg",
     rating: 5,
     reviews: 203,
@@ -120,8 +120,8 @@ const sampleProducts = [
   },
   {
     id: 12,
-    name: "",
-    price: 89.99,
+    name: "Key Chainz",
+    price: 350,
     originalPrice: 119.99,
     image: "/DSC08579.jpg",
     rating: 5,

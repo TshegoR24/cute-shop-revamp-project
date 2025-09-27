@@ -15,7 +15,7 @@ const ladiesProducts = [
   {
     id: 1,
     name: "",
-    price: 79.99,
+    price: 850,
     originalPrice: 99.99,
     image: "/DSC08764.jpg",
     rating: 5,
@@ -28,7 +28,7 @@ const ladiesProducts = [
   {
     id: 2,
     name: "",
-    price: 49.99,
+    price: 850,
     image: "/DSC08794.jpg",
     rating: 4,
     reviews: 89,
@@ -39,7 +39,7 @@ const ladiesProducts = [
   {
     id: 3,
     name: "",
-    price: 89.99,
+    price: 1100,
     originalPrice: 119.99,
     image: "/DSC08890.jpg",
     rating: 5,
@@ -51,7 +51,7 @@ const ladiesProducts = [
   {
     id: 4,
     name: "",
-    price: 59.99,
+    price: 150,
     image: "/DSC09025.jpg",
     rating: 4,
     reviews: 112,
@@ -61,7 +61,7 @@ const ladiesProducts = [
   {
     id: 5,
     name: "",
-    price: 75.99,
+    price: 75,
     image: "/DSC08561.jpg",
     rating: 4,
     reviews: 145,
@@ -82,8 +82,8 @@ const ladiesProducts = [
   },
   {
     id: 7,
-    name: "",
-    price: 65.99,
+    name: "Key Chainz",
+    price: 350,
     image: "/DSC08581.jpg",
     rating: 4,
     reviews: 134,
@@ -107,7 +107,7 @@ const littleGirlsProducts = [
   {
     id: 5,
     name: "",
-    price: 34.99,
+    price: 2000,
     image: "/DSC09183.jpg",
     rating: 5,
     reviews: 98,
@@ -118,7 +118,7 @@ const littleGirlsProducts = [
   {
     id: 6,
     name: "",
-    price: 32.99,
+    price: 650,
     originalPrice: 44.99,
     image: "/DSC08817.jpg",
     rating: 5,
@@ -150,7 +150,7 @@ const littleGirlsProducts = [
   {
     id: 9,
     name: "",
-    price: 45.99,
+    price: 550,
     image: "/DSC08567.jpg",
     rating: 5,
     reviews: 89,
@@ -161,7 +161,7 @@ const littleGirlsProducts = [
   {
     id: 10,
     name: "",
-    price: 29.99,
+    price: 2000,
     image: "/DSC08576.jpg",
     rating: 5,
     reviews: 203,
