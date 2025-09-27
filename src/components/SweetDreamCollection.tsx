@@ -1,4 +1,5 @@
 import React from 'react';
+import { sweetDreamProducts } from '@/data/products';
 
 type Product = {
   id: number;
@@ -9,56 +10,8 @@ type Product = {
   rating: number;
 };
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "",
-    price: "$19.99",
-    image: "/DSC08764.jpg",
-    description: "Ultra-soft memory foam pillow for the perfect night's sleep",
-    rating: 4.8,
-  },
-  {
-    id: 2,
-    name: "",
-    price: "$29.99",
-    image: "/DSC08794.jpg",
-    description: "Cozy weighted blanket with celestial design",
-    rating: 4.9,
-  },
-  {
-    id: 3,
-    name: "",
-    price: "$24.99",
-    image: "/DSC08890.jpg",
-    description: "Breathable cotton pajamas for ultimate comfort",
-    rating: 4.7,
-  },
-  {
-    id: 4,
-    name: "",
-    price: "$34.99",
-    image: "/DSC08910.jpg",
-    description: "Lavender-scented pillow for relaxation",
-    rating: 4.6,
-  },
-  {
-    id: 5,
-    name: "",
-    price: "$39.99",
-    image: "/DSC09183.jpg",
-    description: "Handcrafted dream catcher for peaceful dreams",
-    rating: 4.8,
-  },
-  {
-    id: 6,
-    name: "",
-    price: "$27.99",
-    image: "/placeholder.svg",
-    description: "Herbal tea blend for bedtime relaxation",
-    rating: 4.5,
-  },
-];
+// Use centralized product data
+const products: Product[] = sweetDreamProducts;
 
 const StarRating = ({ rating }: { rating: number }) => {
   const stars = [];

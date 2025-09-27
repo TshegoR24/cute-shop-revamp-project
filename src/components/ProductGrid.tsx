@@ -6,131 +6,13 @@ import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "./ProductCard";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { allProducts } from "@/data/products";
 
-const sampleProducts = [
-  {
-    id: 1,
-    name: "",
-    price: 850,
-    originalPrice: 69.99,
-    image: "/DSC08764.jpg",
-    rating: 5,
-    reviews: 127,
-    category: "Ladies",
-    gender: "Ladies",
-    isNew: true,
-    isSale: true
-  },
-  {
-    id: 2,
-    name: "",
-    price: 850,
-    image: "/DSC08794.jpg",
-    rating: 4,
-    reviews: 89,
-    category: "Ladies",
-    gender: "Ladies",
-    isNew: true
-  },
-  {
-    id: 3,
-    name: "",
-    price: 1100,
-    originalPrice: 99.99,
-    image: "/DSC08890.jpg",
-    rating: 5,
-    reviews: 203,
-    category: "Ladies",
-    gender: "Ladies",
-    isSale: true
-  },
-  {
-    id: 5,
-    name: "",
-    price: 2000,
-    image: "/DSC09183.jpg",
-    rating: 5,
-    reviews: 98,
-    category: "Little Girls",
-    gender: "Little Girls",
-    isNew: true
-  },
-  {
-    id: 6,
-    name: "",
-    price: 650,
-    originalPrice: 44.99,
-    image: "/DSC08817.jpg",
-    rating: 5,
-    reviews: 76,
-    category: "Little Girls",
-    gender: "Little Girls",
-    isSale: true
-  },
-  {
-    id: 7,
-    name: "Key Chainz",
-    price: 350,
-    image: "/DSC09025.jpg",
-    rating: 4,
-    reviews: 112,
-    category: "Loungewear",
-    gender: "Ladies"
-  },
-  {
-    id: 8,
-    name: "",
-    price: 150,
-    image: "/DSC08561.jpg",
-    rating: 4,
-    reviews: 145,
-    category: "Ladies",
-    gender: "Ladies"
-  },
-  {
-    id: 9,
-    name: "",
-    price: 75,
-    image: "/DSC08567.jpg",
-    rating: 5,
-    reviews: 89,
-    category: "Little Girls",
-    gender: "Little Girls",
-    isNew: true
-  },
-  {
-    id: 10,
-    name: "",
-    price: 550,
-    image: "/DSC08570.jpg",
-    rating: 4,
-    reviews: 167,
-    category: "Sleepwear",
-    gender: "Ladies"
-  },
-  {
-    id: 11,
-    name: "",
-    price: 2000,
-    image: "/DSC08576.jpg",
-    rating: 5,
-    reviews: 203,
-    category: "Little Girls",
-    gender: "Little Girls"
-  },
-  {
-    id: 12,
-    name: "Key Chainz",
-    price: 350,
-    originalPrice: 119.99,
-    image: "/DSC08579.jpg",
-    rating: 5,
-    reviews: 78,
-    category: "Ladies",
-    gender: "Ladies",
-    isSale: true
-  }
-];
+// Use centralized product data
+const sampleProducts = allProducts;
+
+// Debug: Log the first product to verify data is loaded
+console.log('ProductGrid - First product:', sampleProducts[0]);
 
 export const ProductGrid = () => {
   const [sortBy, setSortBy] = useState("featured");

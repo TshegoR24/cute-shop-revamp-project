@@ -90,7 +90,11 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
 
 export const formatCurrency = (amount: number, locale: Locale): string => {
   const config = localizationConfigs[locale];
-  const formattedAmount = amount.toLocaleString('en-US', {
+  
+  // Convert Rand to Naira for Nigeria (1 Rand = 25 Naira)
+  const convertedAmount = locale === 'ng' ? amount * 25 : amount;
+  
+  const formattedAmount = convertedAmount.toLocaleString('en-US', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   });
