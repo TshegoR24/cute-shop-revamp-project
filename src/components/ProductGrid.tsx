@@ -11,7 +11,7 @@ const sampleProducts = [
     name: "Floral Pajama Set",
     price: 49.99,
     originalPrice: 69.99,
-    image: "🌸",
+    image: "/DSC08764.jpg",
     rating: 5,
     reviews: 127,
     category: "Ladies",
@@ -23,7 +23,7 @@ const sampleProducts = [
     id: 2,
     name: "Cotton Sleep Dress",
     price: 39.99,
-    image: "🌙",
+    image: "/DSC08794.jpg",
     rating: 4,
     reviews: 89,
     category: "Ladies",
@@ -35,7 +35,7 @@ const sampleProducts = [
     name: "Silk Robe",
     price: 79.99,
     originalPrice: 99.99,
-    image: "✨",
+    image: "/DSC08890.jpg",
     rating: 5,
     reviews: 203,
     category: "Ladies",
@@ -43,20 +43,10 @@ const sampleProducts = [
     isSale: true
   },
   {
-    id: 4,
-    name: "Kids Dinosaur PJs",
-    price: 29.99,
-    image: "🦕",
-    rating: 4,
-    reviews: 156,
-    category: "Little Boys",
-    gender: "Little Boys"
-  },
-  {
     id: 5,
     name: "Princess Nightgown",
     price: 34.99,
-    image: "👑",
+    image: "/DSC09183.jpg",
     rating: 5,
     reviews: 98,
     category: "Little Girls",
@@ -68,7 +58,7 @@ const sampleProducts = [
     name: "Unicorn Pajama Set",
     price: 32.99,
     originalPrice: 44.99,
-    image: "🦄",
+    image: "/DSC08817.jpg",
     rating: 5,
     reviews: 76,
     category: "Little Girls",
@@ -79,22 +69,12 @@ const sampleProducts = [
     id: 7,
     name: "Cozy Loungewear Set",
     price: 59.99,
-    image: "☁️",
+    image: "/DSC09025.jpg",
     rating: 4,
     reviews: 112,
     category: "Loungewear",
     gender: "Ladies"
   },
-  {
-    id: 8,
-    name: "Space Hero PJs",
-    price: 27.99,
-    image: "🚀",
-    rating: 4,
-    reviews: 234,
-    category: "Little Boys",
-    gender: "Little Boys"
-  }
 ];
 
 export const ProductGrid = () => {
@@ -103,8 +83,8 @@ export const ProductGrid = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedGender, setSelectedGender] = useState<string>("All");
 
-  const categories = ["All", "Ladies", "Little Girls", "Little Boys", "Sleepwear", "Loungewear"];
-  const genders = ["All", "Ladies", "Little Girls", "Little Boys"];
+  const categories = ["All", "Ladies", "Little Girls", "Sleepwear"];
+  const genders = ["All", "Ladies", "Little Girls"];
 
   const filteredProducts = sampleProducts.filter(product => {
     const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes("All") || selectedCategories.includes(product.category);

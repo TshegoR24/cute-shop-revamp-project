@@ -48,22 +48,15 @@ export const Hero = () => {
             onPlay={() => console.log('Video started playing')}
             onPause={() => console.log('Video paused')}
           >
-            {/* Mobile-optimized video */}
-            {isMobile && (
-              <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
-            )}
-            {/* Desktop high-quality video */}
-            {!isMobile && (
-              <source src="/1113242_Front_view_Veil_3840x2160.mp4" type="video/mp4" />
-            )}
-            {/* Fallback for both */}
-            <source src="/7509446-hd_1066_1920_25fps.mp4" type="video/mp4" />
+            {/* New hero video for all devices */}
+            <source src="/IMG_0285.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
         )}
         
         {/* Fallback if video fails */}
         {videoError && (
-          <div className="absolute inset-0 bg-gradient-dreamy">
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
             {/* Animated elements for fallback */}
             <div className="absolute inset-0">
               <div className="absolute top-1/4 left-1/4 text-4xl opacity-20 animate-float">🌸</div>
@@ -74,6 +67,7 @@ export const Hero = () => {
             </div>
           </div>
         )}
+        
       </div>
       
       {/* Optional overlay for better text contrast */}

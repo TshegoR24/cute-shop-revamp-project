@@ -6,6 +6,7 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { RegionalInfo } from "@/components/RegionalInfo";
 import { Footer } from "@/components/Footer";
+import { EmailSignupPopup } from "@/components/EmailSignupPopup";
 
 const Index = () => {
   return (
@@ -21,6 +22,7 @@ const Index = () => {
       <RegionalInfo />
       <NewsletterSection />
       <Footer />
+      <EmailSignupPopup />
     </div>
   );
 };

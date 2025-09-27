@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLocale } from "@/contexts/LocaleContext";
+import { useCart } from "@/contexts/CartContext";
 
 interface Product {
   id: number;
@@ -24,6 +25,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { formatCurrency } = useLocale();
+  const { addToCart } = useCart();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -39,9 +41,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     >
       {/* Image Container */}
       <div className="relative aspect-[4/5] overflow-hidden bg-muted/30">
-        <div className="w-full h-full flex items-center justify-center text-4xl opacity-40">
-          {product.image}
-        </div>
+        {product.image.startsWith('/') ? (
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-4xl opacity-40">
+            {product.image}
+          </div>
+        )}
         
         {/* Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -81,7 +91,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <Eye className="h-4 w-4 mr-2" />
             Quick View
           </Button>
-          <Button size="sm" className="flex-1 bg-foreground text-background hover:bg-foreground/90 font-light tracking-wide">
+          <Button 
+            size="sm" 
+            className="flex-1 bg-foreground text-background hover:bg-foreground/90 font-light tracking-wide"
+            onClick={() => addToCart(product)}
+          >
             <ShoppingBag className="h-4 w-4 mr-2" />
             Add to Cart
           </Button>

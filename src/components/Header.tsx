@@ -5,12 +5,27 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Logo } from "./Logo";
 import { LocaleSelector } from "./LocaleSelector";
+import { Cart } from "./Cart";
+import { useCart } from "@/contexts/CartContext";
+import { Link, useLocation } from "react-router-dom";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartCount] = useState(2);
-  const [activeCategory, setActiveCategory] = useState("New Arrivals");
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { getTotalItems } = useCart();
+  const location = useLocation();
   const [isOverHero, setIsOverHero] = useState(true);
+
+  // Get current active category based on route
+  const getActiveCategory = () => {
+    const path = location.pathname;
+    if (path === '/ladies') return 'Ladies';
+    if (path === '/little-girls') return 'Little Girls';
+    if (path === '/sleepwear') return 'Sleepwear';
+    return 'Ladies'; // default
+  };
+
+  const activeCategory = getActiveCategory();
 
   // Check if header is over hero section
   useEffect(() => {
@@ -28,7 +43,7 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const categories = ["New Arrivals", "Ladies", "Little Girls", "Little Boys", "Sleepwear", "Loungewear", "Sale"];
+  const categories = ["Ladies", "Little Girls", "Sleepwear"];
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -59,12 +74,15 @@ export const Header = () => {
             {categories.map((category) => {
               let hoverClass = "";
               let activeClass = "";
+              let linkPath = "";
+              
+              // Set link paths
+              if (category === "Ladies") linkPath = "/ladies";
+              else if (category === "Little Girls") linkPath = "/little-girls";
+              else if (category === "Sleepwear") linkPath = "/sleepwear";
               
               // Active state colors
-              if (category === "Little Boys") {
-                activeClass = activeCategory === category ? "text-blue-400" : "";
-                hoverClass = "hover:text-blue-400";
-              } else if (category === "Ladies" || category === "Little Girls") {
+              if (category === "Ladies" || category === "Little Girls") {
                 activeClass = activeCategory === category ? "text-pink-400" : "";
                 hoverClass = "hover:text-pink-400";
               } else {
@@ -73,18 +91,18 @@ export const Header = () => {
               }
               
               return (
-                <Button
-                  key={category}
-                  variant="ghost"
-                  className={`text-sm font-light tracking-wide transition-colors duration-300 ${
-                    isOverHero 
-                      ? `text-white/90 ${hoverClass} ${activeClass}` 
-                      : `${hoverClass} ${activeClass}`
-                  }`}
-                  onClick={() => setActiveCategory(category)}
-                >
-                  {category}
-                </Button>
+                <Link key={category} to={linkPath}>
+                  <Button
+                    variant="ghost"
+                    className={`text-sm font-light tracking-wide transition-colors duration-300 ${
+                      isOverHero 
+                        ? `text-white/90 ${hoverClass} ${activeClass}` 
+                        : `${hoverClass} ${activeClass}`
+                    }`}
+                  >
+                    {category}
+                  </Button>
+                </Link>
               );
             })}
           </nav>
@@ -107,16 +125,17 @@ export const Header = () => {
               className={`relative transition-colors duration-300 ${
                 isOverHero ? 'text-white hover:bg-white/10' : 'hover:bg-accent'
               }`}
+              onClick={() => setIsCartOpen(true)}
             >
               <ShoppingBag className="h-5 w-5" />
-              {cartCount > 0 && (
+              {getTotalItems() > 0 && (
                 <Badge 
                   variant="secondary" 
                   className={`absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs ${
                     isOverHero ? 'bg-white text-black' : 'bg-foreground text-background'
                   }`}
                 >
-                  {cartCount}
+                  {getTotalItems()}
                 </Badge>
               )}
             </Button>
@@ -154,12 +173,15 @@ export const Header = () => {
             {categories.map((category) => {
               let hoverClass = "";
               let activeClass = "";
+              let linkPath = "";
+              
+              // Set link paths
+              if (category === "Ladies") linkPath = "/ladies";
+              else if (category === "Little Girls") linkPath = "/little-girls";
+              else if (category === "Sleepwear") linkPath = "/sleepwear";
               
               // Active state colors
-              if (category === "Little Boys") {
-                activeClass = activeCategory === category ? "text-blue-400" : "";
-                hoverClass = "hover:text-blue-400";
-              } else if (category === "Ladies" || category === "Little Girls") {
+              if (category === "Ladies" || category === "Little Girls") {
                 activeClass = activeCategory === category ? "text-pink-400" : "";
                 hoverClass = "hover:text-pink-400";
               } else {
@@ -168,26 +190,27 @@ export const Header = () => {
               }
               
               return (
-                <Button
-                  key={category}
-                  variant="ghost"
-                  className={`w-full justify-start text-left font-light tracking-wide transition-colors duration-300 ${
-                    isOverHero 
-                      ? `text-white/90 ${hoverClass} ${activeClass}` 
-                      : `${hoverClass} ${activeClass}`
-                  }`}
-                  onClick={() => {
-                    setActiveCategory(category);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  {category}
-                </Button>
+                <Link key={category} to={linkPath}>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-left font-light tracking-wide transition-colors duration-300 ${
+                      isOverHero 
+                        ? `text-white/90 ${hoverClass} ${activeClass}` 
+                        : `${hoverClass} ${activeClass}`
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {category}
+                  </Button>
+                </Link>
               );
             })}
           </nav>
         </div>
       )}
+      
+      {/* Cart Modal */}
+      <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 };
