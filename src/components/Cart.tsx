@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { useLocale } from "@/contexts/LocaleContext";
+import { shopifyHelpers } from "@/lib/shopify";
 
 interface CartProps {
   isOpen: boolean;
@@ -18,11 +19,28 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
 
   const handleCheckout = async () => {
     setIsCheckingOut(true);
-    // Simulate payment processing
-    setTimeout(() => {
-      alert('Redirecting to payment gateway...');
+    try {
+      // Convert cart items to Shopify format
+      const lineItems = cartItems.map(item => ({
+        variantId: `gid://shopify/ProductVariant/${item.id}`, // You'll need to map this to actual Shopify variant IDs
+        quantity: item.quantity
+      }));
+
+      // Create Shopify checkout
+      const checkout = await shopifyHelpers.createCheckout(lineItems);
+      
+      if (checkout) {
+        // Redirect to Shopify checkout
+        window.location.href = checkout.webUrl;
+      } else {
+        throw new Error('Failed to create checkout');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Error creating checkout. Please try again.');
+    } finally {
       setIsCheckingOut(false);
-    }, 1000);
+    }
   };
 
   if (!isOpen) return null;

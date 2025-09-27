@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Filter, SlidersHorizontal, Grid3X3, List, ChevronDown, ShoppingBag, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -7,14 +7,44 @@ import { ProductCard } from "./ProductCard";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
 import { allProducts } from "@/data/products";
-
-// Use centralized product data
-const sampleProducts = allProducts;
-
-// Debug: Log the first product to verify data is loaded
-console.log('ProductGrid - First product:', sampleProducts[0]);
+import { shopifyHelpers } from "@/lib/shopify";
 
 export const ProductGrid = () => {
+  const [products, setProducts] = useState(allProducts);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Try to fetch from Shopify first, fallback to local data
+  useEffect(() => {
+    const fetchShopifyProducts = async () => {
+      try {
+        const shopifyProducts = await shopifyHelpers.getAllProducts();
+        if (shopifyProducts && shopifyProducts.length > 0) {
+          // Convert Shopify products to our format
+          const convertedProducts = shopifyProducts.map((product: any, index: number) => ({
+            id: parseInt(product.id.split('/').pop()) || index + 1,
+            name: product.title,
+            price: parseFloat(product.variants[0]?.price?.amount) || 0,
+            image: product.images[0]?.src || '/placeholder.svg',
+            rating: 5,
+            reviews: 0,
+            category: product.productType || 'General',
+            gender: 'Unisex'
+          }));
+          setProducts(convertedProducts);
+          console.log('✅ Loaded products from Shopify:', convertedProducts.length);
+        }
+      } catch (error) {
+        console.log('⚠️ Using local product data as fallback');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchShopifyProducts();
+  }, []);
+
+  // Use centralized product data
+  const sampleProducts = products;
   const [sortBy, setSortBy] = useState("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
