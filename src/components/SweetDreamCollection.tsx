@@ -12,7 +12,7 @@ type Product = {
 const products: Product[] = [
   {
     id: 1,
-    name: "Dreamy Pillow Plush",
+    name: "",
     price: "$19.99",
     image: "/DSC08764.jpg",
     description: "Ultra-soft memory foam pillow for the perfect night's sleep",
@@ -20,7 +20,7 @@ const products: Product[] = [
   },
   {
     id: 2,
-    name: "Starry Night Blanket",
+    name: "",
     price: "$29.99",
     image: "/DSC08794.jpg",
     description: "Cozy weighted blanket with celestial design",
@@ -28,7 +28,7 @@ const products: Product[] = [
   },
   {
     id: 3,
-    name: "Cloud Soft Pajamas",
+    name: "",
     price: "$24.99",
     image: "/DSC08890.jpg",
     description: "Breathable cotton pajamas for ultimate comfort",
@@ -36,7 +36,7 @@ const products: Product[] = [
   },
   {
     id: 4,
-    name: "Moonlight Cushion",
+    name: "",
     price: "$34.99",
     image: "/DSC08910.jpg",
     description: "Lavender-scented pillow for relaxation",
@@ -44,7 +44,7 @@ const products: Product[] = [
   },
   {
     id: 5,
-    name: "Dream Catcher Mobile",
+    name: "",
     price: "$39.99",
     image: "/DSC09183.jpg",
     description: "Handcrafted dream catcher for peaceful dreams",
@@ -52,7 +52,7 @@ const products: Product[] = [
   },
   {
     id: 6,
-    name: "Sleepy Time Tea Set",
+    name: "",
     price: "$27.99",
     image: "/placeholder.svg",
     description: "Herbal tea blend for bedtime relaxation",

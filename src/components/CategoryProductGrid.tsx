@@ -12,7 +12,7 @@ interface CategoryProductGridProps {
 const ladiesProducts = [
   {
     id: 1,
-    name: "Elegant Silk Nightgown",
+    name: "",
     price: 79.99,
     originalPrice: 99.99,
     image: "/DSC08764.jpg",
@@ -25,7 +25,7 @@ const ladiesProducts = [
   },
   {
     id: 2,
-    name: "Cotton Sleep Dress",
+    name: "",
     price: 49.99,
     image: "/DSC08794.jpg",
     rating: 4,
@@ -36,7 +36,7 @@ const ladiesProducts = [
   },
   {
     id: 3,
-    name: "Luxury Robe Set",
+    name: "",
     price: 89.99,
     originalPrice: 119.99,
     image: "/DSC08890.jpg",
@@ -48,7 +48,7 @@ const ladiesProducts = [
   },
   {
     id: 4,
-    name: "Cozy Loungewear Set",
+    name: "",
     price: 59.99,
     image: "/DSC09025.jpg",
     rating: 4,
@@ -58,7 +58,7 @@ const ladiesProducts = [
   },
   {
     id: 5,
-    name: "Premium Nightwear",
+    name: "",
     price: 75.99,
     image: "/DSC08561.jpg",
     rating: 4,
@@ -68,7 +68,7 @@ const ladiesProducts = [
   },
   {
     id: 6,
-    name: "Silk Sleep Set",
+    name: "",
     price: 95.99,
     originalPrice: 125.99,
     image: "/DSC08579.jpg",
@@ -80,7 +80,7 @@ const ladiesProducts = [
   },
   {
     id: 7,
-    name: "Elegant Pajama Set",
+    name: "",
     price: 65.99,
     image: "/DSC08581.jpg",
     rating: 4,
@@ -90,7 +90,7 @@ const ladiesProducts = [
   },
   {
     id: 8,
-    name: "Luxury Nightdress",
+    name: "",
     price: 85.99,
     image: "/DSC08583.jpg",
     rating: 5,
@@ -104,7 +104,7 @@ const ladiesProducts = [
 const littleGirlsProducts = [
   {
     id: 5,
-    name: "Princess Nightgown",
+    name: "",
     price: 34.99,
     image: "/DSC09183.jpg",
     rating: 5,
@@ -115,7 +115,7 @@ const littleGirlsProducts = [
   },
   {
     id: 6,
-    name: "Unicorn Pajama Set",
+    name: "",
     price: 32.99,
     originalPrice: 44.99,
     image: "/DSC08817.jpg",
@@ -127,7 +127,7 @@ const littleGirlsProducts = [
   },
   {
     id: 7,
-    name: "Fairy Tale Nightdress",
+    name: "",
     price: 39.99,
     image: "/DSC08910.jpg",
     rating: 4,
@@ -137,7 +137,7 @@ const littleGirlsProducts = [
   },
   {
     id: 8,
-    name: "Sparkle Sleep Set",
+    name: "",
     price: 29.99,
     image: "/DSC09115.jpg",
     rating: 4,
@@ -147,7 +147,7 @@ const littleGirlsProducts = [
   },
   {
     id: 9,
-    name: "Dreamy Sleep Set",
+    name: "",
     price: 45.99,
     image: "/DSC08567.jpg",
     rating: 5,
@@ -158,7 +158,7 @@ const littleGirlsProducts = [
   },
   {
     id: 10,
-    name: "Cute Nightdress",
+    name: "",
     price: 29.99,
     image: "/DSC08576.jpg",
     rating: 5,
@@ -168,7 +168,7 @@ const littleGirlsProducts = [
   },
   {
     id: 11,
-    name: "Princess Sleepwear",
+    name: "",
     price: 35.99,
     image: "/DSC08607.jpg",
     rating: 4,
@@ -178,7 +178,7 @@ const littleGirlsProducts = [
   },
   {
     id: 12,
-    name: "Fairy Nightgown",
+    name: "",
     price: 42.99,
     image: "/DSC08611.jpg",
     rating: 5,
@@ -192,7 +192,7 @@ const littleGirlsProducts = [
 const sleepwearProducts = [
   {
     id: 9,
-    name: "Premium Cotton Pajamas",
+    name: "",
     price: 45.99,
     image: "/DSC08764.jpg",
     rating: 5,
@@ -202,7 +202,7 @@ const sleepwearProducts = [
   },
   {
     id: 10,
-    name: "Silk Sleep Set",
+    name: "",
     price: 69.99,
     image: "/DSC08794.jpg",
     rating: 4,
@@ -212,7 +212,7 @@ const sleepwearProducts = [
   },
   {
     id: 11,
-    name: "Kids Cotton PJs",
+    name: "",
     price: 24.99,
     image: "/DSC08890.jpg",
     rating: 5,
@@ -222,7 +222,7 @@ const sleepwearProducts = [
   },
   {
     id: 12,
-    name: "Family Sleepwear Set",
+    name: "",
     price: 89.99,
     image: "/DSC09025.jpg",
     rating: 4,
@@ -232,7 +232,7 @@ const sleepwearProducts = [
   },
   {
     id: 13,
-    name: "Comfort Pajamas",
+    name: "",
     price: 55.99,
     image: "/DSC08570.jpg",
     rating: 4,
@@ -242,7 +242,7 @@ const sleepwearProducts = [
   },
   {
     id: 14,
-    name: "Soft Sleep Set",
+    name: "",
     price: 42.99,
     image: "/DSC08581.jpg",
     rating: 4,
@@ -252,7 +252,7 @@ const sleepwearProducts = [
   },
   {
     id: 15,
-    name: "Cozy Nightwear",
+    name: "",
     price: 38.99,
     image: "/DSC08615.jpg",
     rating: 5,
@@ -262,7 +262,7 @@ const sleepwearProducts = [
   },
   {
     id: 16,
-    name: "Premium Sleep Set",
+    name: "",
     price: 65.99,
     image: "/DSC08640.jpg",
     rating: 4,

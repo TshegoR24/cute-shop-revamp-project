@@ -8,7 +8,7 @@ import { ProductCard } from "./ProductCard";
 const sampleProducts = [
   {
     id: 1,
-    name: "Floral Pajama Set",
+    name: "",
     price: 49.99,
     originalPrice: 69.99,
     image: "/DSC08764.jpg",
@@ -21,7 +21,7 @@ const sampleProducts = [
   },
   {
     id: 2,
-    name: "Cotton Sleep Dress",
+    name: "",
     price: 39.99,
     image: "/DSC08794.jpg",
     rating: 4,
@@ -32,7 +32,7 @@ const sampleProducts = [
   },
   {
     id: 3,
-    name: "Silk Robe",
+    name: "",
     price: 79.99,
     originalPrice: 99.99,
     image: "/DSC08890.jpg",
@@ -44,7 +44,7 @@ const sampleProducts = [
   },
   {
     id: 5,
-    name: "Princess Nightgown",
+    name: "",
     price: 34.99,
     image: "/DSC09183.jpg",
     rating: 5,
@@ -55,7 +55,7 @@ const sampleProducts = [
   },
   {
     id: 6,
-    name: "Unicorn Pajama Set",
+    name: "",
     price: 32.99,
     originalPrice: 44.99,
     image: "/DSC08817.jpg",
@@ -67,7 +67,7 @@ const sampleProducts = [
   },
   {
     id: 7,
-    name: "Cozy Loungewear Set",
+    name: "",
     price: 59.99,
     image: "/DSC09025.jpg",
     rating: 4,
@@ -77,7 +77,7 @@ const sampleProducts = [
   },
   {
     id: 8,
-    name: "Elegant Nightwear",
+    name: "",
     price: 65.99,
     image: "/DSC08561.jpg",
     rating: 4,
@@ -87,7 +87,7 @@ const sampleProducts = [
   },
   {
     id: 9,
-    name: "Dreamy Sleep Set",
+    name: "",
     price: 45.99,
     image: "/DSC08567.jpg",
     rating: 5,
@@ -98,7 +98,7 @@ const sampleProducts = [
   },
   {
     id: 10,
-    name: "Comfort Pajamas",
+    name: "",
     price: 55.99,
     image: "/DSC08570.jpg",
     rating: 4,
@@ -108,7 +108,7 @@ const sampleProducts = [
   },
   {
     id: 11,
-    name: "Cute Nightdress",
+    name: "",
     price: 29.99,
     image: "/DSC08576.jpg",
     rating: 5,
@@ -118,7 +118,7 @@ const sampleProducts = [
   },
   {
     id: 12,
-    name: "Luxury Sleepwear",
+    name: "",
     price: 89.99,
     originalPrice: 119.99,
     image: "/DSC08579.jpg",

@@ -7,7 +7,7 @@ import { useParams, Link } from "react-router-dom";
 // Sample product data - in real app this would come from API
 const sampleProduct = {
   id: 1,
-  name: "Floral Pajama Set",
+  name: "",
   price: 49.99,
   originalPrice: 69.99,
   images: ["🌸", "🌙", "✨", "💫"],
@@ -17,7 +17,7 @@ const sampleProduct = {
   gender: "Ladies",
   isNew: true,
   isSale: true,
-  description: "Cozy and comfortable pajama set with beautiful floral pattern. Made from soft, breathable cotton that's perfect for a good night's sleep.",
+  description: "Cozy and comfortable pajama set with beautiful pink floral pattern. Made from soft, breathable cotton that's perfect for a good night's sleep.",
   features: [
     "100% Cotton",
     "Breathable fabric",
