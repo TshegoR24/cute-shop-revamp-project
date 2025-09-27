@@ -30,6 +30,12 @@ export const Header = () => {
   // Check if header is over hero section
   useEffect(() => {
     const handleScroll = () => {
+      // For category pages, always use dark text
+      if (location.pathname === '/ladies' || location.pathname === '/little-girls' || location.pathname === '/sleepwear') {
+        setIsOverHero(false);
+        return;
+      }
+      
       const heroSection = document.querySelector('section');
       if (heroSection) {
         const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
@@ -41,7 +47,7 @@ export const Header = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check initial position
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const categories = ["Ladies", "Little Girls", "Sleepwear"];
 
@@ -49,7 +55,7 @@ export const Header = () => {
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       isOverHero 
         ? 'bg-transparent border-b border-white/20' 
-        : 'bg-background/80 backdrop-blur-md border-b border-border/50'
+        : 'bg-background/95 backdrop-blur-md border-b border-border/50'
     }`}>
       {/* Main Header */}
       <div className="container mx-auto px-6">
