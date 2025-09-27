@@ -19,14 +19,14 @@ export const Logo = ({ isOverHero = false }: LogoProps) => {
       </div>
 
       {/* Logo text */}
-      <div className="flex items-center">
-        <h1 className={`text-2xl font-light tracking-wide transition-colors duration-300 ${
+      <div className="flex items-center whitespace-nowrap">
+        <h1 className={`text-xl sm:text-2xl font-light tracking-wide transition-colors duration-300 ${
           isOverHero ? 'text-white' : 'text-foreground'
         }`}>
           All Things
         </h1>
-        <span className={`text-2xl font-normal tracking-wide ml-2 transition-colors duration-300 ${
-          isOverHero ? 'text-pink-300' : 'text-pink'
+        <span className={`text-xl sm:text-2xl font-normal tracking-wide ml-1 sm:ml-2 transition-colors duration-300 ${
+          isOverHero ? 'text-pink-300' : 'text-pink-600'
         }`}>
           Cute
         </span>

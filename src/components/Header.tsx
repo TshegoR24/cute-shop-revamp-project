@@ -58,7 +58,7 @@ export const Header = () => {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       isOverHero 
-        ? 'bg-transparent border-b border-white/20' 
+        ? 'bg-transparent md:bg-transparent bg-background/95 border-b border-white/20' 
         : 'bg-background/95 backdrop-blur-md border-b border-border/50'
     }`}>
       {/* Main Header */}
@@ -178,7 +178,7 @@ export const Header = () => {
 
         {/* Mobile Search */}
         <div className={`md:hidden py-4 border-t transition-colors duration-300 ${
-          isOverHero ? 'border-white/20' : 'border-border/50'
+          isOverHero ? 'border-white/20 bg-background/95' : 'border-border/50'
         }`}>
           <div className="relative">
             <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 transition-colors duration-300 ${
@@ -188,7 +188,7 @@ export const Header = () => {
               placeholder="Search..."
               className={`pl-10 w-full rounded-full transition-colors duration-300 ${
                 isOverHero 
-                  ? 'border border-white/30 focus:border-white/50 bg-white/10 text-white placeholder:text-white/60' 
+                  ? 'border border-white/30 focus:border-white/50 bg-white/20 text-white placeholder:text-white/80' 
                   : 'border border-border/50 focus:border-foreground/50 bg-background/50'
               }`}
               onClick={() => setIsSearchOpen(true)}
