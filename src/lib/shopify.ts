@@ -7,6 +7,11 @@ console.log('🔧 Shopify Configuration:');
 console.log('  - Domain:', SHOPIFY_DOMAIN);
 console.log('  - Token:', SHOPIFY_TOKEN ? 'Set' : 'Missing');
 console.log('  - API URL:', SHOPIFY_API_URL);
+console.log('  - Environment:', import.meta.env.MODE);
+console.log('  - All env vars:', {
+  VITE_SHOPIFY_DOMAIN: import.meta.env.VITE_SHOPIFY_DOMAIN,
+  VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN: import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+});
 
 // Helper function to make GraphQL requests
 async function shopifyFetch(query: string, variables: any = {}) {
