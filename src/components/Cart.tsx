@@ -25,34 +25,23 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
       // Try to create Shopify checkout first
       const checkout = await shopifyHelpers.createCheckoutWithVariants(cartItems);
       
+      console.log('🔍 Checkout creation result:', checkout);
+      console.log('🔍 Checkout webUrl:', checkout?.webUrl);
+      console.log('🔍 Checkout type:', typeof checkout?.webUrl);
+      
       if (checkout && checkout.webUrl) {
-        console.log('✅ Shopify checkout created, redirecting...');
+        console.log('✅ Shopify checkout created, redirecting to:', checkout.webUrl);
         // Redirect to Shopify checkout
         window.location.href = checkout.webUrl;
         return; // Exit early on success
       }
       
-      console.log('❌ Shopify checkout failed, trying alternative...');
-      
-      // If Shopify checkout failed, try a simple checkout with any available product
-      const simpleCheckout = await shopifyHelpers.createCheckout([{
-        variantId: 'gid://shopify/ProductVariant/1', // Use a generic variant ID
-        quantity: 1
-      }]);
-      
-      if (simpleCheckout && simpleCheckout.webUrl) {
-        console.log('✅ Simple checkout created, redirecting...');
-        window.location.href = simpleCheckout.webUrl;
-        return;
-      }
-      
-      // Only fall back to email if both Shopify attempts fail
-      console.log('❌ All Shopify attempts failed, falling back to email');
+      console.log('❌ Shopify checkout failed, falling back to email');
       const productNames = cartItems.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ');
       const totalPrice = getTotalPrice();
       
       const subject = `New Order Request - ${formatCurrency(totalPrice)}`;
-      const body = `Hello,%0A%0AI would like to place an order:%0A%0AProducts:%0A${productNames}%0A%0ATotal: ${formatCurrency(totalPrice)}%0A%0APlease confirm availability and provide payment details.%0A%0AThank you!`;
+      const body = `Hello,\n\nI would like to place an order:\n\nProducts:\n${productNames}\n\nTotal: ${formatCurrency(totalPrice)}\n\nPlease confirm availability and provide payment details.\n\nThank you!`;
       const emailUrl = `mailto:orders@allthingscut8.shop?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = emailUrl;
       
@@ -63,7 +52,7 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
       const totalPrice = getTotalPrice();
       
       const subject = `New Order Request - ${formatCurrency(totalPrice)}`;
-      const body = `Hello,%0A%0AI would like to place an order:%0A%0AProducts:%0A${productNames}%0A%0ATotal: ${formatCurrency(totalPrice)}%0A%0APlease confirm availability and provide payment details.%0A%0AThank you!`;
+      const body = `Hello,\n\nI would like to place an order:\n\nProducts:\n${productNames}\n\nTotal: ${formatCurrency(totalPrice)}\n\nPlease confirm availability and provide payment details.\n\nThank you!`;
       const emailUrl = `mailto:orders@allthingscut8.shop?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = emailUrl;
     } finally {

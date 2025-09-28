@@ -1,53 +1,145 @@
-import Client from 'shopify-buy';
+// Shopify GraphQL API configuration
+const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN;
+const SHOPIFY_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+const SHOPIFY_API_URL = `https://${SHOPIFY_DOMAIN}.myshopify.com/api/2024-01/graphql.json`;
 
-// Initialize Shopify client
-const client = Client.buildClient({
-  domain: 'allthingscut8.shop',
-  storefrontAccessToken: '9e70582428de3466cab37b697333de10'
-});
+console.log('🔧 Shopify Configuration:');
+console.log('  - Domain:', SHOPIFY_DOMAIN);
+console.log('  - Token:', SHOPIFY_TOKEN ? 'Set' : 'Missing');
+console.log('  - API URL:', SHOPIFY_API_URL);
 
-export default client;
+// Helper function to make GraphQL requests
+async function shopifyFetch(query: string, variables: any = {}) {
+  const response = await fetch(SHOPIFY_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN
+    },
+    body: JSON.stringify({
+      query,
+      variables
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  
+  if (data.errors) {
+    throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
+  }
+
+  return data;
+}
 
 // Helper functions for Shopify integration
 export const shopifyHelpers = {
-  // Fetch all products
+  // Test Shopify connection
+  async testConnection() {
+    try {
+      console.log('🔍 Testing Shopify connection...');
+      const response = await shopifyFetch('{ shop { name } }');
+      console.log('✅ Shopify connection test successful');
+      return true;
+    } catch (error) {
+      console.error('❌ Shopify connection test error:', error);
+      return false;
+    }
+  },
+
+  // Fetch all products using GraphQL
   async getAllProducts() {
     try {
-      const products = await client.product.fetchAll();
+      console.log('🔍 Fetching products from Shopify...');
+      
+      const query = `
+        query getProducts($first: Int!) {
+          products(first: $first) {
+            edges {
+              node {
+                id
+                title
+                handle
+                variants(first: 10) {
+                  edges {
+                    node {
+                      id
+                      title
+                      price {
+                        amount
+                        currencyCode
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `;
+      
+      const response = await shopifyFetch(query, { first: 50 });
+      const products = response.data.products.edges.map((edge: any) => ({
+        id: edge.node.id,
+        title: edge.node.title,
+        handle: edge.node.handle,
+        variants: edge.node.variants.edges.map((variantEdge: any) => ({
+          id: variantEdge.node.id,
+          title: variantEdge.node.title,
+          price: variantEdge.node.price
+        }))
+      }));
+      
+      console.log('✅ Products fetched successfully:', products.length);
       return products;
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('❌ Error fetching products:', error);
+      console.error('❌ Error details:', error.message);
       return [];
     }
   },
 
-  // Fetch a single product by ID
+  // Fetch a single product by ID using GraphQL
   async getProduct(id: string) {
     try {
-      const product = await client.product.fetch(id);
-      return product;
+      const query = `
+        query getProduct($id: ID!) {
+          product(id: $id) {
+            id
+            title
+            handle
+            variants(first: 10) {
+              edges {
+                node {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
+          }
+        }
+      `;
+      
+      const response = await shopifyFetch(query, { id });
+      return response.data.product;
     } catch (error) {
       console.error('Error fetching product:', error);
       return null;
     }
   },
 
-  // Create a checkout
-  async createCheckout(lineItems: any[]) {
-    try {
-      const checkout = await client.checkout.create({
-        lineItems: lineItems
-      });
-      return checkout;
-    } catch (error) {
-      console.error('Error creating checkout:', error);
-      return null;
-    }
-  },
-
-  // Create checkout with product variants (proper implementation)
+  // Create checkout with product variants using GraphQL
   async createCheckoutWithVariants(cartItems: any[]) {
     try {
+      console.log('🔍 Creating checkout with GraphQL...');
+      
       // First, we need to fetch products from Shopify to get proper variant IDs
       const products = await this.getAllProducts();
       console.log('🔍 Shopify products found:', products.length);
@@ -87,7 +179,7 @@ export const shopifyHelpers = {
         if (shopifyProduct && shopifyProduct.variants && shopifyProduct.variants.length > 0) {
           console.log(`✅ Found match: ${shopifyProduct.title}`);
           return {
-            variantId: shopifyProduct.variants[0].id,
+            merchandiseId: shopifyProduct.variants[0].id,
             quantity: cartItem.quantity
           };
         }
@@ -97,7 +189,7 @@ export const shopifyHelpers = {
         if (products.length > 0 && products[0].variants && products[0].variants.length > 0) {
           console.log(`🔄 Using fallback product: ${products[0].title}`);
           return {
-            variantId: products[0].variants[0].id,
+            merchandiseId: products[0].variants[0].id,
             quantity: cartItem.quantity
           };
         }
@@ -111,26 +203,56 @@ export const shopifyHelpers = {
         throw new Error('No matching products found in Shopify store');
       }
 
-      const checkout = await client.checkout.create({
-        lineItems: lineItems
-      });
+      // Create cart using Storefront API (Storefront API doesn't have checkoutCreate)
+      const cartCreateMutation = `
+        mutation cartCreate($input: CartInput!) {
+          cartCreate(input: $input) {
+            cart {
+              id
+              checkoutUrl
+              totalQuantity
+              cost {
+                totalAmount {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+      `;
+
+      const input = {
+        lines: lineItems
+      };
+
+      console.log('🔍 Creating cart with input:', input);
+      const response = await shopifyFetch(cartCreateMutation, { input });
       
-      console.log('✅ Checkout created successfully:', checkout.webUrl);
-      return checkout;
+      if (response.data.cartCreate.userErrors.length > 0) {
+        throw new Error(`Cart errors: ${JSON.stringify(response.data.cartCreate.userErrors)}`);
+      }
+
+      const cart = response.data.cartCreate.cart;
+      
+      console.log('✅ Cart created successfully:');
+      console.log('  - Cart ID:', cart.id);
+      console.log('  - Checkout URL:', cart.checkoutUrl);
+      console.log('  - Total Price:', cart.cost.totalAmount);
+      
+      return {
+        id: cart.id,
+        webUrl: cart.checkoutUrl,
+        totalPrice: cart.cost.totalAmount
+      };
     } catch (error) {
       console.error('Error creating checkout with variants:', error);
       return null;
     }
   },
 
-  // Add item to cart
-  async addToCart(checkoutId: string, lineItems: any[]) {
-    try {
-      const checkout = await client.checkout.addLineItems(checkoutId, lineItems);
-      return checkout;
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      return null;
-    }
-  }
 };
