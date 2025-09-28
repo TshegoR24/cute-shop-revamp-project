@@ -7,40 +7,15 @@ import { ProductCard } from "./ProductCard";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
 import { allProducts } from "@/data/products";
-import { shopifyHelpers } from "@/lib/shopify";
+// import { shopifyHelpers } from "@/lib/shopify";
 
 export const ProductGrid = () => {
   const [products, setProducts] = useState(allProducts);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Try to fetch from Shopify first, fallback to local data
+  // Use local data for now
   useEffect(() => {
-    const fetchShopifyProducts = async () => {
-      try {
-        const shopifyProducts = await shopifyHelpers.getAllProducts();
-        if (shopifyProducts && shopifyProducts.length > 0) {
-          // Convert Shopify products to our format
-          const convertedProducts = shopifyProducts.map((product: any, index: number) => ({
-            id: parseInt(product.id.split('/').pop()) || index + 1,
-            name: product.title,
-            price: parseFloat(product.variants[0]?.price?.amount) || 0,
-            image: product.images[0]?.src || '/placeholder.svg',
-            rating: 5,
-            reviews: 0,
-            category: product.productType || 'General',
-            gender: 'Unisex'
-          }));
-          setProducts(convertedProducts);
-          console.log('✅ Loaded products from Shopify:', convertedProducts.length);
-        }
-      } catch (error) {
-        console.log('⚠️ Using local product data as fallback');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchShopifyProducts();
+    setIsLoading(false);
   }, []);
 
   // Use centralized product data
