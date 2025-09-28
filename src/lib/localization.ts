@@ -33,8 +33,8 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
   ng: {
     locale: 'ng',
     currency: {
-      code: 'NGN',
-      symbol: '₦',
+      code: 'USD',
+      symbol: '$',
       position: 'before'
     },
     language: {
@@ -51,7 +51,7 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
       address: 'Cape Town'
     },
     shipping: {
-      freeThreshold: 50000, // ₦50,000
+      freeThreshold: 50, // $50
       deliveryTime: '3-5 business days'
     },
     payment: {
@@ -91,12 +91,12 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
 export const formatCurrency = (amount: number, locale: Locale): string => {
   const config = localizationConfigs[locale];
   
-  // Convert Rand to Naira for Nigeria (1 Rand = 25 Naira)
-  const convertedAmount = locale === 'ng' ? amount * 25 : amount;
+  // Convert Rand to USD for South Africa (1 USD = 18 ZAR approximately)
+  const convertedAmount = locale === 'za' ? amount * 18 : amount;
   
   const formattedAmount = convertedAmount.toLocaleString('en-US', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
   
   return config.currency.position === 'before' 
