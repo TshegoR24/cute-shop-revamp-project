@@ -15,6 +15,12 @@ console.log('  - All env vars:', {
 
 // Helper function to make GraphQL requests
 async function shopifyFetch(query: string, variables: any = {}) {
+  console.log('🔍 Making GraphQL request to:', SHOPIFY_API_URL);
+  console.log('🔍 Request headers:', {
+    'Content-Type': 'application/json',
+    'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN ? 'Set' : 'Missing'
+  });
+  
   const response = await fetch(SHOPIFY_API_URL, {
     method: 'POST',
     headers: {
@@ -27,6 +33,9 @@ async function shopifyFetch(query: string, variables: any = {}) {
     })
   });
 
+  console.log('🔍 Response status:', response.status);
+  console.log('🔍 Response ok:', response.ok);
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -34,6 +43,7 @@ async function shopifyFetch(query: string, variables: any = {}) {
   const data = await response.json();
   
   if (data.errors) {
+    console.error('❌ GraphQL errors:', data.errors);
     throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
   }
 

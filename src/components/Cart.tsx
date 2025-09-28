@@ -21,6 +21,11 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
     setIsCheckingOut(true);
     try {
       console.log('🚀 Attempting Shopify checkout...');
+      console.log('🔍 Environment check:', {
+        mode: import.meta.env.MODE,
+        domain: import.meta.env.VITE_SHOPIFY_DOMAIN,
+        token: import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN ? 'Set' : 'Missing'
+      });
       
       // Try to create Shopify checkout first
       const checkout = await shopifyHelpers.createCheckoutWithVariants(cartItems);
