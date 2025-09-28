@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { useLocale } from "@/contexts/LocaleContext";
-// import { shopifyHelpers } from "@/lib/shopify";
+import { shopifyHelpers } from "@/lib/shopify";
 
 interface CartProps {
   isOpen: boolean;
@@ -20,7 +20,25 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
   const handleCheckout = async () => {
     setIsCheckingOut(true);
     try {
-      // For now, redirect to email with order details
+      // Try to create Shopify checkout first
+      const checkout = await shopifyHelpers.createCheckoutWithVariants(cartItems);
+      
+      if (checkout && checkout.webUrl) {
+        // Redirect to Shopify checkout
+        window.location.href = checkout.webUrl;
+      } else {
+        // Fallback: redirect to email with order details
+        const productNames = cartItems.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ');
+        const totalPrice = getTotalPrice();
+        
+        const subject = `New Order Request - ${formatCurrency(totalPrice)}`;
+        const body = `Hello,%0A%0AI would like to place an order:%0A%0AProducts:%0A${productNames}%0A%0ATotal: ${formatCurrency(totalPrice)}%0A%0APlease confirm availability and provide payment details.%0A%0AThank you!`;
+        const emailUrl = `mailto:orders@allthingscut8.shop?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = emailUrl;
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      // Fallback to email
       const productNames = cartItems.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ');
       const totalPrice = getTotalPrice();
       
@@ -28,15 +46,6 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
       const body = `Hello,%0A%0AI would like to place an order:%0A%0AProducts:%0A${productNames}%0A%0ATotal: ${formatCurrency(totalPrice)}%0A%0APlease confirm availability and provide payment details.%0A%0AThank you!`;
       const emailUrl = `mailto:orders@allthingscut8.shop?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = emailUrl;
-    } catch (error) {
-      console.error('Checkout error:', error);
-      // Fallback to WhatsApp
-      const productNames = cartItems.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ');
-      const totalPrice = getTotalPrice();
-      
-      const orderMessage = `🛍️ *New Order Request*%0A%0A*Products:*%0A${productNames}%0A%0A*Total: ${formatCurrency(totalPrice)}*%0A%0APlease confirm this order and provide payment details.`;
-      const whatsappUrl = `https://wa.me/27612345678?text=${orderMessage}`;
-      window.location.href = whatsappUrl;
     } finally {
       setIsCheckingOut(false);
     }
