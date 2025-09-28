@@ -20,24 +20,31 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
   const handleCheckout = async () => {
     setIsCheckingOut(true);
     try {
-      // Convert cart items to Shopify format
-      const lineItems = cartItems.map(item => ({
-        variantId: `gid://shopify/ProductVariant/${item.id}`, // You'll need to map this to actual Shopify variant IDs
-        quantity: item.quantity
-      }));
-
-      // Create Shopify checkout
-      const checkout = await shopifyHelpers.createCheckout(lineItems);
+      // Try to create Shopify checkout first
+      const checkout = await shopifyHelpers.createCheckoutWithVariants(cartItems);
       
-      if (checkout) {
+      if (checkout && checkout.webUrl) {
         // Redirect to Shopify checkout
         window.location.href = checkout.webUrl;
       } else {
-        throw new Error('Failed to create checkout');
+        // Fallback: redirect to email with order details
+        const productNames = cartItems.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ');
+        const totalPrice = getTotalPrice();
+        
+        const subject = `New Order Request - ${formatCurrency(totalPrice)}`;
+        const body = `Hello,%0A%0AI would like to place an order:%0A%0AProducts:%0A${productNames}%0A%0ATotal: ${formatCurrency(totalPrice)}%0A%0APlease confirm availability and provide payment details.%0A%0AThank you!`;
+        const emailUrl = `mailto:orders@allthingscut8.shop?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = emailUrl;
       }
     } catch (error) {
       console.error('Checkout error:', error);
-      alert('Error creating checkout. Please try again.');
+      // Fallback to WhatsApp
+      const productNames = cartItems.map(item => `${item.name} (Qty: ${item.quantity})`).join(', ');
+      const totalPrice = getTotalPrice();
+      
+      const orderMessage = `🛍️ *New Order Request*%0A%0A*Products:*%0A${productNames}%0A%0A*Total: ${formatCurrency(totalPrice)}*%0A%0APlease confirm this order and provide payment details.`;
+      const whatsappUrl = `https://wa.me/27612345678?text=${orderMessage}`;
+      window.location.href = whatsappUrl;
     } finally {
       setIsCheckingOut(false);
     }
