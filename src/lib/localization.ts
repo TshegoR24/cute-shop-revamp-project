@@ -91,10 +91,8 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
 export const formatCurrency = (amount: number, locale: Locale): string => {
   const config = localizationConfigs[locale];
   
-  // Convert Rand to USD for South Africa (1 USD = 18 ZAR approximately)
-  const convertedAmount = locale === 'za' ? amount * 18 : amount;
-  
-  const formattedAmount = convertedAmount.toLocaleString('en-US', {
+  // Display prices in their native currency (no conversion needed)
+  const formattedAmount = amount.toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });

@@ -27,7 +27,7 @@ export const allProducts: Product[] = [
   {
     id: 1,
     name: "Hearts Out PJs",
-    price: 25.99,
+    price: 850,
     originalPrice: 29.99,
     image: "/DSC08764.jpg",
     rating: 5,
@@ -40,7 +40,7 @@ export const allProducts: Product[] = [
   {
     id: 2,
     name: "Hearts Out PJs",
-    price: 25.99,
+    price: 850,
     image: "/DSC08794.jpg",
     rating: 4,
     reviews: 0,
@@ -51,7 +51,7 @@ export const allProducts: Product[] = [
   {
     id: 3,
     name: "Bow tie PJ (pink and red)",
-    price: 32.99,
+    price: 1000,
     originalPrice: 39.99,
     image: "/DSC08890.jpg",
     rating: 5,
@@ -74,7 +74,7 @@ export const allProducts: Product[] = [
   {
     id: 5,
     name: "Belle dayjama",
-    price: 59.99,
+    price: 1600,
     image: "/DSC09025.jpg",
     rating: 4,
     reviews: 0,
@@ -83,8 +83,8 @@ export const allProducts: Product[] = [
   },
   {
     id: 6,
-    name: "",
-    price: 8.99,
+    name: "Key Chain",
+    price: 150,
     image: "/DSC08561.jpg",
     rating: 4,
     reviews: 0,
@@ -93,8 +93,8 @@ export const allProducts: Product[] = [
   },
   {
     id: 7,
-    name: "",
-    price: 8.99,
+    name: "Key Chain",
+    price: 150,
     originalPrice: 7.99,
     image: "/DSC08579.jpg",
     rating: 5,
@@ -106,7 +106,7 @@ export const allProducts: Product[] = [
   {
     id: 8,
     name: "Key Chainz",
-    price: 8.99,
+    price: 150,
     image: "/DSC08581.jpg",
     rating: 4,
     reviews: 0,
@@ -115,8 +115,8 @@ export const allProducts: Product[] = [
   },
   {
     id: 9,
-    name: "",
-    price: 8.99,
+    name: "Key Chain",
+    price: 150,
     image: "/DSC08583.jpg",
     rating: 5,
     reviews: 0,
@@ -127,7 +127,7 @@ export const allProducts: Product[] = [
   {
     id: 10,
     name: "",
-    price: 18.99,
+    price: 350,
     image: "/DSC08537 (1).jpg",
     rating: 4,
     reviews: 0,
@@ -140,7 +140,7 @@ export const allProducts: Product[] = [
   {
     id: 11,
     name: "Mami dayjama",
-    price: 59.99,
+    price: 2000,
     image: "/DSC09183.jpg",
     rating: 5,
     reviews: 0,
@@ -163,7 +163,7 @@ export const allProducts: Product[] = [
   {
     id: 13,
     name: "",
-    price: 18.99,
+    price: 350,
     image: "/DSC08533 (1).jpg",
     rating: 4,
     reviews: 0,
@@ -192,8 +192,8 @@ export const allProducts: Product[] = [
   },
   {
     id: 16,
-    name: "",
-    price: 8.99,
+    name: "Key Chain",
+    price: 150,
     image: "/DSC08567.jpg",
     rating: 5,
     reviews: 0,
@@ -204,7 +204,7 @@ export const allProducts: Product[] = [
   {
     id: 17,
     name: "",
-    price: 18.99,
+    price: 350,
     image: "/DSC08576.jpg",
     rating: 5,
     reviews: 0,
@@ -214,7 +214,7 @@ export const allProducts: Product[] = [
   {
     id: 18,
     name: "(paired with sleeping mask)",
-    price: 18.99,
+    price: 350,
     image: "/DSC08607.jpg",
     rating: 4,
     reviews: 167,
@@ -224,7 +224,7 @@ export const allProducts: Product[] = [
   {
     id: 19,
     name: "(paired with sleeping mask)",
-    price: 18.99,
+    price: 350,
     image: "/DSC08611.jpg",
     rating: 5,
     reviews: 0,
@@ -235,7 +235,7 @@ export const allProducts: Product[] = [
   {
     id: 20,
     name: "",
-    price: 18.99,
+    price: 350,
     image: "/DSC08555.jpg",
     rating: 4,
     reviews: 143,
@@ -267,7 +267,7 @@ export const allProducts: Product[] = [
   {
     id: 23,
     name: "Hearts Out PJ",
-    price: 1100,
+    price: 850,
     image: "/DSC08890.jpg",
     rating: 5,
     reviews: 123,
@@ -277,7 +277,7 @@ export const allProducts: Product[] = [
   {
     id: 24,
     name: "Bow Tie PJ",
-    price: 59.99,
+    price: 1000,
     image: "/DSC09025.jpg",
     rating: 4,
     reviews: 45,
@@ -286,8 +286,8 @@ export const allProducts: Product[] = [
   },
   {
     id: 25,
-    name: "Belle Dayjama",
-    price: 8.99,
+    name: "Key Chain",
+    price: 150,
     image: "/DSC08570.jpg",
     rating: 4,
     reviews: 167,
@@ -296,8 +296,8 @@ export const allProducts: Product[] = [
   },
   {
     id: 26,
-    name: "",
-    price: 8.99,
+    name: "Key Chain",
+    price: 150,
     image: "/DSC08581.jpg",
     rating: 4,
     reviews: 0,
@@ -307,7 +307,7 @@ export const allProducts: Product[] = [
   {
     id: 27,
     name: "(paired with sleeping mask)",
-    price: 18.99,
+    price: 350,
     image: "/DSC08615.jpg",
     rating: 5,
     reviews: 0,
@@ -328,7 +328,7 @@ export const allProducts: Product[] = [
   {
     id: 29,
     name: "",
-    price: 18.99,
+    price: 350,
     originalPrice: 129.99,
     image: "/DSC08540 (1).jpg",
     rating: 5,
@@ -340,7 +340,7 @@ export const allProducts: Product[] = [
   {
     id: 30,
     name: "(paired with sleeping mask)",
-    price: 18.99,
+    price: 350,
     image: "/DSC08613.jpg",
     rating: 4,
     reviews: 176,
@@ -387,7 +387,7 @@ export const allProducts: Product[] = [
   {
     id: 34,
     name: "Mami dayjama",
-    price: 59.99,
+    price: 2000,
     image: "/DSC09128.jpg",
     rating: 5,
     reviews: 0,
@@ -398,7 +398,7 @@ export const allProducts: Product[] = [
   {
     id: 35,
     name: "Mami dayjama",
-    price: 59.99,
+    price: 2000,
     image: "/DSC09136.jpg",
     rating: 5,
     reviews: 0,
@@ -409,7 +409,7 @@ export const allProducts: Product[] = [
   {
     id: 36,
     name: "Mami dayjama",
-    price: 59.99,
+    price: 2000,
     image: "/DSC09183 (1).jpg",
     rating: 5,
     reviews: 0,
