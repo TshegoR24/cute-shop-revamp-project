@@ -54,7 +54,7 @@ export const TestimonialsSection = () => {
           {testimonials.map((testimonial) => (
             <Card 
               key={testimonial.id} 
-              className="group hover-lift transition-all duration-300 border border-border/50 hover:border-foreground/30 bg-background"
+              className="group transition-all duration-300 border border-border/50 hover:border-foreground/30 bg-background"
             >
               <CardContent className="p-8">
                 {/* Rating */}

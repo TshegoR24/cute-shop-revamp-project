@@ -103,7 +103,7 @@ export const FeaturesSection = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="group hover-lift transition-all duration-300 border border-lavender/30 hover:border-pink/50 bg-background/90 backdrop-blur-sm"
+              className="group transition-all duration-300 border border-lavender/30 hover:border-pink/50 bg-background/90 backdrop-blur-sm"
             >
               <CardContent className="p-8 text-center">
                 <div className="relative mb-8">

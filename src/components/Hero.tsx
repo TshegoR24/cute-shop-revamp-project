@@ -95,7 +95,7 @@ export const Hero = () => {
               <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
                 <Button 
                   size="lg" 
-                  className="bg-white text-foreground hover:bg-white/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300 hover-lift"
+                  className="bg-white text-foreground hover:bg-white/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
                 >
                   {getText('hero.cta.primary')}
                   <ArrowRight className="ml-3 h-5 w-5" />

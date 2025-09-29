@@ -7,7 +7,6 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { QuickViewModal } from "./QuickViewModal";
-import { ImageHoverZoom } from "./ImageHoverZoom";
 
 interface Product {
   id: number;
@@ -31,7 +30,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const { formatCurrency } = useLocale();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  const [isHovered, setIsHovered] = useState(false);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   
   const isWishlisted = isInWishlist(product.id);
@@ -43,20 +41,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <>
     <Card 
-      className={`group relative border border-border/50 hover:border-foreground/30 transition-all duration-300 hover-lift bg-background ${isHovered ? 'overflow-visible' : 'overflow-hidden'}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ zIndex: isHovered ? 5 : 1 }}
+      className="group relative border border-border/50 hover:border-foreground/30 transition-all duration-300 bg-background overflow-hidden"
     >
       {/* Image Container */}
-      <div className="relative aspect-[4/5] bg-muted/30" style={{ zIndex: isHovered ? 10 : 1 }}>
+      <div className="relative aspect-[4/5] bg-muted/30">
         {product.image.startsWith('/') ? (
-          <ImageHoverZoom
+          <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full"
-            zoomScale={1.3}
-            zoomPosition="center"
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl opacity-40">
@@ -82,9 +75,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className={`absolute top-4 right-4 bg-background/80 hover:bg-background transition-all duration-300 ${
-            isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
-          }`}
+          className="absolute top-4 right-4 bg-background/80 hover:bg-background transition-all duration-300 translate-y-0 opacity-100"
           onClick={() => isWishlisted ? removeFromWishlist(product.id) : addToWishlist(product)}
         >
           <Heart 
@@ -95,9 +86,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </Button>
 
         {/* Quick Actions */}
-        <div className={`absolute bottom-4 left-4 right-4 flex gap-3 transition-all duration-300 ${
-          isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-        }`}>
+        <div className="absolute bottom-4 left-4 right-4 flex gap-3 transition-all duration-300 translate-y-0 opacity-100">
           <Button 
             variant="outline" 
             size="sm" 

@@ -154,15 +154,6 @@ All colors MUST be HSL.
   animation: slideInLeft 0.6s ease-out;
 }
 
-/* Smooth hover transitions */
-.hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px hsl(280 25% 80% / 0.2);
-}
 
 /* All Things Cute custom styles */
 .bg-gradient-dreamy {

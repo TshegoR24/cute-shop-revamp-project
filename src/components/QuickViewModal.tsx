@@ -7,7 +7,6 @@ import { Product } from "@/data/products";
 import { useLocale } from "@/contexts/LocaleContext";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
-import { ImageHoverZoom } from "./ImageHoverZoom";
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -81,12 +80,10 @@ export const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps
           <div className="space-y-4">
             {/* Main Image */}
             <div className="aspect-square bg-muted/30 rounded-lg overflow-hidden">
-              <ImageHoverZoom
+              <img
                 src={productImages[selectedImage]}
                 alt={product.name}
-                className="w-full h-full"
-                zoomScale={2.0}
-                zoomPosition="center"
+                className="w-full h-full object-cover"
               />
             </div>
 
