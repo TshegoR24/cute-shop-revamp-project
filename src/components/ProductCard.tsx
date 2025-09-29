@@ -59,12 +59,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         
         {/* Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
-          {product.isNew && (
+          {product.isSoldOut && (
+            <Badge className="bg-red-500 text-white font-light tracking-wide px-3 py-1">
+              Sold Out
+            </Badge>
+          )}
+          {product.isNew && !product.isSoldOut && (
             <Badge className="bg-foreground text-background font-light tracking-wide px-3 py-1">
               New
             </Badge>
           )}
-          {product.isSale && discountPercentage > 0 && (
+          {product.isSale && discountPercentage > 0 && !product.isSoldOut && (
             <Badge variant="secondary" className="font-light tracking-wide px-3 py-1">
               -{discountPercentage}%
             </Badge>
@@ -96,14 +101,25 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <Eye className="h-4 w-4 mr-2" />
             Quick View
           </Button>
-          <Button 
-            size="sm" 
-            className="flex-1 bg-foreground text-background hover:bg-foreground/90 font-light tracking-wide"
-            onClick={() => addToCart(product)}
-          >
-            <ShoppingBag className="h-4 w-4 mr-2" />
-            Add to Cart
-          </Button>
+          {product.isSoldOut ? (
+            <Button 
+              size="sm" 
+              disabled
+              className="flex-1 bg-gray-400 text-white font-light tracking-wide cursor-not-allowed"
+            >
+              <ShoppingBag className="h-4 w-4 mr-2" />
+              Sold Out
+            </Button>
+          ) : (
+            <Button 
+              size="sm" 
+              className="flex-1 bg-foreground text-background hover:bg-foreground/90 font-light tracking-wide"
+              onClick={() => addToCart(product)}
+            >
+              <ShoppingBag className="h-4 w-4 mr-2" />
+              Add to Cart
+            </Button>
+          )}
         </div>
       </div>
 

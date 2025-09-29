@@ -10,6 +10,7 @@ export interface Product {
   gender: string;
   isNew?: boolean;
   isSale?: boolean;
+  isSoldOut?: boolean;
 }
 
 export interface SweetDreamProduct {
@@ -35,7 +36,8 @@ export const allProducts: Product[] = [
     category: "Ladies",
     gender: "Ladies",
     isNew: true,
-    isSale: true
+    isSale: true,
+    isSoldOut: true
   },
   {
     id: 2,
@@ -46,7 +48,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Ladies",
     gender: "Ladies",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 3,
@@ -58,7 +61,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Ladies",
     gender: "Ladies",
-    isSale: true
+    isSale: true,
+    isSoldOut: true
   },
   {
     id: 4,
@@ -79,7 +83,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 0,
     category: "Ladies",
-    gender: "Ladies"
+    gender: "Ladies",
+    isSoldOut: true
   },
   {
     id: 6,
@@ -89,7 +94,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 0,
     category: "Ladies",
-    gender: "Ladies"
+    gender: "Ladies",
+    isSoldOut: true
   },
   {
     id: 7,
@@ -101,7 +107,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Ladies",
     gender: "Ladies",
-    isSale: true
+    isSale: true,
+    isSoldOut: true
   },
   {
     id: 8,
@@ -111,7 +118,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 0,
     category: "Ladies",
-    gender: "Ladies"
+    gender: "Ladies",
+    isSoldOut: true
   },
   {
     id: 9,
@@ -122,7 +130,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Ladies",
     gender: "Ladies",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 10,
@@ -146,7 +155,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Little Girls",
     gender: "Little Girls",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 12,
@@ -158,7 +168,8 @@ export const allProducts: Product[] = [
     reviews: 76,
     category: "Little Girls",
     gender: "Little Girls",
-    isSale: true
+    isSale: true,
+    isSoldOut: true
   },
   {
     id: 13,
@@ -178,7 +189,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 0,
     category: "Little Girls",
-    gender: "Little Girls"
+    gender: "Little Girls",
+    isSoldOut: true
   },
   {
     id: 15,
@@ -188,7 +200,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 234,
     category: "Little Girls",
-    gender: "Little Girls"
+    gender: "Little Girls",
+    isSoldOut: true
   },
   {
     id: 16,
@@ -199,7 +212,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Little Girls",
     gender: "Little Girls",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 17,
@@ -262,7 +276,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 67,
     category: "Sleepwear",
-    gender: "Ladies"
+    gender: "Ladies",
+    isSoldOut: true
   },
   {
     id: 23,
@@ -272,7 +287,8 @@ export const allProducts: Product[] = [
     rating: 5,
     reviews: 123,
     category: "Sleepwear",
-    gender: "Little Girls"
+    gender: "Little Girls",
+    isSoldOut: true
   },
   {
     id: 24,
@@ -282,7 +298,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 45,
     category: "Sleepwear",
-    gender: "Ladies"
+    gender: "Ladies",
+    isSoldOut: true
   },
   {
     id: 25,
@@ -292,7 +309,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 167,
     category: "Sleepwear",
-    gender: "Ladies"
+    gender: "Ladies",
+    isSoldOut: true
   },
   {
     id: 26,
@@ -302,7 +320,8 @@ export const allProducts: Product[] = [
     rating: 4,
     reviews: 0,
     category: "Sleepwear",
-    gender: "Ladies"
+    gender: "Ladies",
+    isSoldOut: true
   },
   {
     id: 27,
@@ -358,7 +377,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Ladies",
     gender: "Ladies",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 32,
@@ -369,7 +389,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Little Girls",
     gender: "Little Girls",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 33,
@@ -380,7 +401,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Sleepwear",
     gender: "Ladies",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
 
   // New Mami dayjama Collection
@@ -393,7 +415,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Ladies",
     gender: "Ladies",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 35,
@@ -404,7 +427,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Little Girls",
     gender: "Little Girls",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   },
   {
     id: 36,
@@ -415,7 +439,8 @@ export const allProducts: Product[] = [
     reviews: 0,
     category: "Sleepwear",
     gender: "Ladies",
-    isNew: true
+    isNew: true,
+    isSoldOut: true
   }
 ];
 

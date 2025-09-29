@@ -11,13 +11,15 @@ export const EmailSignupPopup = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Check if user has already subscribed
+    // Check if user has already subscribed or dismissed
     const hasSubscribed = localStorage.getItem('emailSubscribed');
-    if (!hasSubscribed) {
-      // Show popup after 2 seconds
+    const hasDismissed = localStorage.getItem('emailDismissed');
+    
+    if (!hasSubscribed && !hasDismissed) {
+      // Show popup after 3 seconds
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 2000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -66,6 +68,11 @@ export const EmailSignupPopup = () => {
           <p className="text-muted-foreground">
             Get exclusive updates on new arrivals, special offers, and sweet dreams!
           </p>
+          <div className="bg-pink-50 border border-pink-200 rounded-lg p-3 mt-4">
+            <p className="text-sm text-pink-800">
+              🎁 <strong>Special Offer:</strong> Get 10% off your first order when you subscribe!
+            </p>
+          </div>
         </CardHeader>
         
         <CardContent>

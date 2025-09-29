@@ -113,12 +113,17 @@ export const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps
           <div className="space-y-6">
             {/* Badges */}
             <div className="flex gap-2">
-              {product.isNew && (
+              {product.isSoldOut && (
+                <Badge className="bg-red-500 text-white border-red-500">
+                  Sold Out
+                </Badge>
+              )}
+              {product.isNew && !product.isSoldOut && (
                 <Badge variant="secondary" className="bg-green-100 text-green-800 border-green-200">
                   New
                 </Badge>
               )}
-              {product.isSale && (
+              {product.isSale && !product.isSoldOut && (
                 <Badge variant="destructive" className="bg-red-100 text-red-800 border-red-200">
                   -{discountPercentage}% Sale
                 </Badge>
@@ -247,13 +252,23 @@ export const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps
                 <Heart className={`h-4 w-4 mr-2 ${isWishlisted ? "fill-current" : ""}`} />
                 {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
               </Button>
-              <Button 
-                onClick={handleAddToCart}
-                className="flex-1 bg-foreground text-background hover:bg-foreground/90"
-              >
-                <ShoppingBag className="h-4 w-4 mr-2" />
-                Add to Cart
-              </Button>
+              {product.isSoldOut ? (
+                <Button 
+                  disabled
+                  className="flex-1 bg-gray-400 text-white cursor-not-allowed"
+                >
+                  <ShoppingBag className="h-4 w-4 mr-2" />
+                  Sold Out
+                </Button>
+              ) : (
+                <Button 
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-foreground text-background hover:bg-foreground/90"
+                >
+                  <ShoppingBag className="h-4 w-4 mr-2" />
+                  Add to Cart
+                </Button>
+              )}
             </div>
 
             {/* Product Description */}

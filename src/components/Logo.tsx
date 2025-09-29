@@ -10,10 +10,10 @@ export const Logo = ({ isOverHero = false }: LogoProps) => {
     <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-300">
       {/* Decorative element */}
       <div className="relative">
-        <div className={`h-6 w-6 animate-pulse text-2xl transition-colors duration-300 ${
+        <div className={`h-6 w-6 text-2xl transition-colors duration-300 ${
           isOverHero ? 'text-white' : 'text-pink'
         }`}>🎀</div>
-        <Sparkles className={`h-3 w-3 absolute -top-1 -right-1 animate-sparkle transition-colors duration-300 ${
+        <Sparkles className={`h-3 w-3 absolute -top-1 -right-1 transition-colors duration-300 ${
           isOverHero ? 'text-white/80' : 'text-lavender'
         }`} />
       </div>
