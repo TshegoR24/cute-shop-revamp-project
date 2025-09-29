@@ -91,8 +91,14 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
 export const formatCurrency = (amount: number, locale: Locale): string => {
   const config = localizationConfigs[locale];
   
-  // Display prices in their native currency (no conversion needed)
-  const formattedAmount = amount.toLocaleString('en-US', {
+  // Convert ZAR to USD for Nigeria (1 USD = 18 ZAR approximately)
+  let convertedAmount = amount;
+  if (locale === 'ng') {
+    // Convert ZAR prices to USD for Nigerian market
+    convertedAmount = amount / 18;
+  }
+  
+  const formattedAmount = convertedAmount.toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });

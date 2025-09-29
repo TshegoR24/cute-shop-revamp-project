@@ -18,7 +18,7 @@ interface LocaleProviderProps {
 
 export const LocaleProvider: React.FC<LocaleProviderProps> = ({ 
   children, 
-  defaultLocale = 'za' 
+  defaultLocale = 'ng' 
 }) => {
   const [currentLocale, setCurrentLocale] = useState<Locale>(defaultLocale);
 

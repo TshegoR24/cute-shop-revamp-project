@@ -63,7 +63,7 @@ export const allProducts: Product[] = [
   {
     id: 4,
     name: "",
-    price: 12.99,
+    price: 350,
     image: "/DSC08531 (1).jpg",
     rating: 4,
     reviews: 0,
@@ -183,7 +183,7 @@ export const allProducts: Product[] = [
   {
     id: 15,
     name: "Mami dayjama",
-    price: 59.99,
+    price: 2000,
     image: "/DSC09115.jpg",
     rating: 4,
     reviews: 234,
@@ -317,7 +317,7 @@ export const allProducts: Product[] = [
   {
     id: 28,
     name: "",
-    price: 75,
+    price: 350,
     image: "/DSC08640.jpg",
     rating: 4,
     reviews: 0,

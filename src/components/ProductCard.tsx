@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useLocale } from "@/contexts/LocaleContext";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { QuickViewModal } from "./QuickViewModal";
+import { ImageHoverZoom } from "./ImageHoverZoom";
 
 interface Product {
   id: number;
@@ -16,6 +18,7 @@ interface Product {
   rating: number;
   reviews: number;
   category: string;
+  gender: string;
   isNew?: boolean;
   isSale?: boolean;
 }
@@ -29,6 +32,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [isHovered, setIsHovered] = useState(false);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   
   const isWishlisted = isInWishlist(product.id);
 
@@ -37,18 +41,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     : 0;
 
   return (
+    <>
     <Card 
-      className="group relative overflow-hidden border border-border/50 hover:border-foreground/30 transition-all duration-300 hover-lift bg-background"
+      className={`group relative border border-border/50 hover:border-foreground/30 transition-all duration-300 hover-lift bg-background ${isHovered ? 'overflow-visible' : 'overflow-hidden'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ zIndex: isHovered ? 5 : 1 }}
     >
       {/* Image Container */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-muted/30">
+      <div className="relative aspect-[4/5] bg-muted/30" style={{ zIndex: isHovered ? 10 : 1 }}>
         {product.image.startsWith('/') ? (
-          <img 
-            src={product.image} 
+          <ImageHoverZoom
+            src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full"
+            zoomScale={1.3}
+            zoomPosition="center"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl opacity-40">
@@ -90,7 +98,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className={`absolute bottom-4 left-4 right-4 flex gap-3 transition-all duration-300 ${
           isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
         }`}>
-          <Button variant="outline" size="sm" className="flex-1 bg-background/90 hover:bg-background border-border/50 font-light tracking-wide">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex-1 bg-background/90 hover:bg-background border-border/50 font-light tracking-wide"
+            onClick={() => setIsQuickViewOpen(true)}
+          >
             <Eye className="h-4 w-4 mr-2" />
             Quick View
           </Button>
@@ -148,5 +161,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </CardContent>
     </Card>
+
+    {/* Quick View Modal */}
+    <QuickViewModal
+      product={product}
+      isOpen={isQuickViewOpen}
+      onClose={() => setIsQuickViewOpen(false)}
+    />
+  </>
   );
 };
