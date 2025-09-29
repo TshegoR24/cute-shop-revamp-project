@@ -42,7 +42,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     { id: 1, name: "Pink Floral Pajama Set", price: 49.99, category: "Ladies", color: "Pink", size: "M", rating: 5, image: "/DSC08764.jpg" },
     { id: 2, name: "Blue Star Print Sleep Dress", price: 39.99, category: "Ladies", color: "Blue", size: "L", rating: 4, image: "/DSC08794.jpg" },
     { id: 3, name: "White Unicorn Graphic Tee", price: 79.99, category: "Little Girls", color: "White", size: "S", rating: 5, image: "/DSC08890.jpg" },
-    { id: 4, name: "Black Polka-Dot Dress", price: 65.99, category: "Ladies", color: "Black", size: "M", rating: 4, image: "/DSC08561.jpg" },
+    { id: 4, name: "Black Polka-Dot Dress", price: 65.99, category: "Ladies", color: "Black", size: "M", rating: 4, image: "/DSC08587.jpg" },
     { id: 5, name: "Purple Rainbow Hoodie", price: 55.99, category: "Little Girls", color: "Purple", size: "S", rating: 5, image: "/DSC09025.jpg" },
   ];
 
