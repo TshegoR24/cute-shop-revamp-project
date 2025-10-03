@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Heart, ShoppingBag, Star, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,7 @@ import { useLocale } from "@/contexts/LocaleContext";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { QuickViewModal } from "./QuickViewModal";
+import { OptimizedImage } from "./OptimizedImage";
 
 interface Product {
   id: number;
@@ -26,7 +27,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = memo(({ product }: ProductCardProps) => {
   const { formatCurrency } = useLocale();
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -46,10 +47,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       {/* Image Container */}
       <div className="relative aspect-[4/5] bg-muted/30">
         {product.image.startsWith('/') ? (
-          <img
+          <OptimizedImage
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl opacity-40">
@@ -175,4 +176,4 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     />
   </>
   );
-};
+});

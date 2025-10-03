@@ -12,3 +12,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Performance optimizations
+Crawl-delay: 1
+
+# Cache control for static assets
+Sitemap: https://your-domain.com/sitemap.xml

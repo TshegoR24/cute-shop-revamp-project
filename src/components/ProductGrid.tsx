@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Filter, SlidersHorizontal, Grid3X3, List, ChevronDown, ShoppingBag, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -48,31 +48,72 @@ export const ProductGrid = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; // Reduced for faster rendering
   const [selectedGender, setSelectedGender] = useState<string>("All");
 
   const categories = ["All", "Ladies", "Little Girls", "Sleepwear"];
   const genders = ["All", "Ladies", "Little Girls"];
 
-  const filteredProducts = sampleProducts.filter(product => {
-    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes("All") || selectedCategories.includes(product.category);
-    const genderMatch = selectedGender === "All" || product.gender === selectedGender;
-    return categoryMatch && genderMatch;
-  });
+  // Memoized filtering and sorting
+  const filteredAndSortedProducts = useMemo(() => {
+    let filtered = sampleProducts;
 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    // Filter by category
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter(product => 
+        selectedCategories.includes(product.category)
+      );
+    }
+
+    // Filter by gender
+    if (selectedGender !== "All") {
+      filtered = filtered.filter(product => 
+        product.gender === selectedGender
+      );
+    }
+
+    // Sort products
     switch (sortBy) {
       case "price-low":
-        return a.price - b.price;
+        return filtered.sort((a, b) => a.price - b.price);
       case "price-high":
-        return b.price - a.price;
+        return filtered.sort((a, b) => b.price - a.price);
       case "rating":
-        return b.rating - a.rating;
+        return filtered.sort((a, b) => b.rating - a.rating);
       case "newest":
-        return b.id - a.id;
+        return filtered.sort((a, b) => b.id - a.id);
       default:
-        return 0;
+        return filtered;
     }
-  });
+  }, [sampleProducts, selectedCategories, selectedGender, sortBy]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredAndSortedProducts.length / itemsPerPage);
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredAndSortedProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredAndSortedProducts, currentPage, itemsPerPage]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategories, selectedGender, sortBy]);
+
+  // Memoized callbacks for better performance
+  const handleCategoryToggle = useCallback((category: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  }, []);
+
+  const handleClearFilters = useCallback(() => {
+    setSelectedCategories([]);
+    setSelectedGender("All");
+    setSortBy("featured");
+  }, []);
 
   const toggleCategory = (category: string) => {
     if (category === "All") {
@@ -183,10 +224,61 @@ export const ProductGrid = () => {
             ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
             : "grid-cols-1"
         }`}>
-          {sortedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {isLoading ? (
+            // Skeleton loaders
+            Array.from({ length: itemsPerPage }).map((_, index) => (
+              <div key={index} className="animate-pulse">
+                <div className="aspect-[4/5] bg-muted/30 rounded-lg mb-4"></div>
+                <div className="h-4 bg-muted/30 rounded mb-2"></div>
+                <div className="h-4 bg-muted/30 rounded w-2/3"></div>
+              </div>
+            ))
+          ) : (
+            paginatedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          )}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-2 mt-12">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </Button>
+            
+            <div className="flex gap-1">
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                const pageNum = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                return (
+                  <Button
+                    key={pageNum}
+                    variant={currentPage === pageNum ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentPage(pageNum)}
+                    className="w-10"
+                  >
+                    {pageNum}
+                  </Button>
+                );
+              })}
+            </div>
+            
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </Button>
+          </div>
+        )}
 
         {/* Enhanced View All Products Section */}
         <div className="text-center mt-16 space-y-6">

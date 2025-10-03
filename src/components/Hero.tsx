@@ -25,34 +25,35 @@ export const Hero = () => {
     <section className="relative h-screen w-full overflow-hidden">
       {/* Hero Video Background - Full viewport height to extend behind navbar */}
       <div className="absolute inset-0 z-0">
-        {/* Show video on all devices */}
-        {!videoError && (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            poster="/placeholder.svg"
-            preload="auto"
-            onError={(e) => {
-              console.log('Video error:', e);
-              setVideoError(true);
-            }}
-            onLoadStart={() => console.log('Video loading started')}
-            onCanPlay={() => {
-              console.log('Video can play');
-              setIsVideoLoaded(true);
-            }}
-            onLoadedData={() => console.log('Video data loaded')}
-            onPlay={() => console.log('Video started playing')}
-            onPause={() => console.log('Video paused')}
-          >
-            {/* New hero video for all devices */}
-            <source src="/IMG_0285.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
+            {/* Show video on all devices with lazy loading */}
+            {!videoError && (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                poster="/placeholder.svg"
+                preload="none"
+                loading="lazy"
+                onError={(e) => {
+                  console.log('Video error:', e);
+                  setVideoError(true);
+                }}
+                onLoadStart={() => console.log('Video loading started')}
+                onCanPlay={() => {
+                  console.log('Video can play');
+                  setIsVideoLoaded(true);
+                }}
+                onLoadedData={() => console.log('Video data loaded')}
+                onPlay={() => console.log('Video started playing')}
+                onPause={() => console.log('Video paused')}
+              >
+                {/* Optimized hero video for all devices */}
+                <source src="/IMG_0285.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
         
         {/* Fallback if video fails */}
         {videoError && (

@@ -57,7 +57,8 @@ export const FeaturesSection = () => {
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
             poster="/placeholder.svg"
-            preload="auto"
+            preload="metadata"
+            loading="lazy"
             onError={(e) => {
               console.log('Features video error:', e);
               setVideoError(true);

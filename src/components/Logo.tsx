@@ -1,4 +1,3 @@
-import { Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface LogoProps {
@@ -7,30 +6,19 @@ interface LogoProps {
 
 export const Logo = ({ isOverHero = false }: LogoProps) => {
   return (
-    <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-300">
-      {/* Decorative element */}
-      <div className="relative">
-        <div className={`h-6 w-6 text-2xl transition-colors duration-300 ${
-          isOverHero ? 'text-white' : 'text-pink'
-        }`}>🎀</div>
-        <Sparkles className={`h-3 w-3 absolute -top-1 -right-1 transition-colors duration-300 ${
-          isOverHero ? 'text-white/80' : 'text-lavender'
-        }`} />
-      </div>
-
-      {/* Logo text */}
-      <div className="flex items-center whitespace-nowrap">
-        <h1 className={`text-xl sm:text-2xl font-light tracking-wide transition-colors duration-300 ${
-          isOverHero ? 'text-white' : 'text-foreground'
-        }`}>
-          All Things
-        </h1>
-        <span className={`text-xl sm:text-2xl font-normal tracking-wide ml-1 sm:ml-2 transition-colors duration-300 ${
-          isOverHero ? 'text-pink-300' : 'text-pink-600'
-        }`}>
-          Cute
-        </span>
-      </div>
+    <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
+      {/* Enhanced Logo Image */}
+          <img
+            src="/optimized/BCO.142c8f05-b911-4699-998e-125db3b67082.png"
+            alt="All Things Cute - ATC Logo"
+        className={`h-20 w-auto object-contain transition-all duration-300`}
+        style={{
+          maxWidth: 'none',
+          filter: isOverHero 
+            ? 'drop-shadow(0 2px 8px rgba(255,255,255,0.9)) drop-shadow(0 0 20px rgba(255,255,255,0.6))' 
+            : 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+        }}
+      />
     </Link>
   );
-}; 
+};
