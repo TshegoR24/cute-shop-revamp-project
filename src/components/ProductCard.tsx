@@ -8,6 +8,7 @@ import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { QuickViewModal } from "./QuickViewModal";
 import { OptimizedImage } from "./OptimizedImage";
+import { Link } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -41,9 +42,10 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
 
   return (
     <>
-    <Card 
-      className="group relative border border-border/50 hover:border-foreground/30 transition-all duration-300 bg-background overflow-hidden"
-    >
+    <Link to={`/product/${product.id}`} className="block">
+      <Card 
+        className="group relative border border-border/50 hover:border-foreground/30 transition-all duration-300 bg-background overflow-hidden cursor-pointer"
+      >
       {/* Image Container */}
       <div className="relative aspect-[4/5] bg-muted/30">
         {product.image.startsWith('/') ? (
@@ -167,6 +169,7 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
         </div>
       </CardContent>
     </Card>
+    </Link>
 
     {/* Quick View Modal */}
     <QuickViewModal

@@ -3,7 +3,6 @@ import { Hero } from "@/components/Hero";
 import { ProductGrid } from "@/components/ProductGrid";
 import { FeaturesSection } from "@/components/FeaturesSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
-import { RegionalInfo } from "@/components/RegionalInfo";
 import { Footer } from "@/components/Footer";
 import { EmailSignupPopup } from "@/components/EmailSignupPopup";
 import { BackToTop } from "@/components/BackToTop";
@@ -18,7 +17,6 @@ const Index = () => {
       </div>
       <ProductGrid />
       <FeaturesSection />
-      <RegionalInfo />
       <NewsletterSection />
       <Footer />
       <EmailSignupPopup />

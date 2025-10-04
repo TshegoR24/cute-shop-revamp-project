@@ -13,6 +13,7 @@ import Ladies from "./pages/Ladies";
 import LittleGirls from "./pages/LittleGirls";
 import Sleepwear from "./pages/Sleepwear";
 import Wishlist from "./pages/Wishlist";
+import { ShopAll } from "./pages/ShopAll";
 import { testLocalization } from "@/lib/localization.test";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => {
                 <Route path="/little-girls" element={<LittleGirls />} />
                 <Route path="/sleepwear" element={<Sleepwear />} />
                 <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/shop-all" element={<ShopAll />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

@@ -14,9 +14,7 @@ export const Logo = ({ isOverHero = false }: LogoProps) => {
         className={`h-20 w-auto object-contain transition-all duration-300`}
         style={{
           maxWidth: 'none',
-          filter: isOverHero 
-            ? 'drop-shadow(0 2px 8px rgba(255,255,255,0.9)) drop-shadow(0 0 20px rgba(255,255,255,0.6))' 
-            : 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
+          filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.1))'
         }}
       />
     </Link>

@@ -46,7 +46,7 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
       flag: '🇳🇬'
     },
     contact: {
-      phone: '0749747975',
+      phone: '+27 749747975',
       email: 'allthingscute@icloud.com',
       address: 'Cape Town'
     },
@@ -55,7 +55,7 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
       deliveryTime: '3-5 business days'
     },
     payment: {
-      methods: ['Paystack', 'Flutterwave', 'Bank Transfer', 'Cash on Delivery']
+      methods: ['VISA', 'Mastercard', 'AMEX', 'Apple Pay', 'Google Pay', 'Discover']
     }
   },
   za: {
@@ -74,7 +74,7 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
       flag: '🇿🇦'
     },
     contact: {
-      phone: '0749747975',
+      phone: '+27 749747975',
       email: 'allthingscute@icloud.com',
       address: 'Cape Town'
     },
@@ -83,7 +83,7 @@ export const localizationConfigs: Record<Locale, LocalizationConfig> = {
       deliveryTime: '2-4 business days'
     },
     payment: {
-      methods: ['PayFast', 'SnapScan', 'EFT', 'Credit Card', 'Cash on Delivery']
+      methods: ['VISA', 'Mastercard', 'AMEX', 'Apple Pay', 'Google Pay', 'Discover']
     }
   }
 };

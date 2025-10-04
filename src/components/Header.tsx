@@ -34,8 +34,8 @@ export const Header = () => {
   // Check if header is over hero section
   useEffect(() => {
     const handleScroll = () => {
-      // For category pages, always use dark text
-      if (location.pathname === '/ladies' || location.pathname === '/little-girls' || location.pathname === '/sleepwear') {
+      // For pages without hero section, always use dark text
+      if (location.pathname === '/ladies' || location.pathname === '/little-girls' || location.pathname === '/sleepwear' || location.pathname === '/wishlist' || location.pathname === '/shop-all' || location.pathname.startsWith('/product/')) {
         setIsOverHero(false);
         return;
       }
@@ -58,8 +58,8 @@ export const Header = () => {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       isOverHero 
-        ? 'bg-transparent md:bg-transparent bg-background/95 border-b border-white/20' 
-        : 'bg-background/95 backdrop-blur-md border-b border-border/50'
+        ? 'bg-white/90 backdrop-blur-sm border-b border-white/30' 
+        : 'bg-white/95 backdrop-blur-md border-b border-border/50'
     }`}>
       {/* Main Header */}
       <div className="container mx-auto px-6">
@@ -69,9 +69,7 @@ export const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className={`md:hidden transition-colors duration-300 ${
-                isOverHero ? 'text-white hover:bg-white/10' : 'hover:bg-accent'
-              }`}
+              className="md:hidden transition-colors duration-300 text-foreground hover:bg-accent"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -102,16 +100,12 @@ export const Header = () => {
               
               return (
                 <Link key={category} to={linkPath}>
-                  <Button
-                    variant="ghost"
-                    className={`text-sm font-light tracking-wide transition-colors duration-300 ${
-                      isOverHero 
-                        ? `text-white/90 ${hoverClass} ${activeClass}` 
-                        : `${hoverClass} ${activeClass}`
-                    }`}
-                  >
-                    {category}
-                  </Button>
+                      <Button
+                        variant="ghost"
+                        className={`text-sm font-light tracking-wide transition-colors duration-300 text-foreground ${hoverClass} ${activeClass}`}
+                      >
+                        {category}
+                      </Button>
                 </Link>
               );
             })}
@@ -120,54 +114,54 @@ export const Header = () => {
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
             <LocaleSelector />
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className={`hidden md:flex transition-colors duration-300 ${
-                isOverHero ? 'text-white hover:bg-white/10' : 'hover:bg-accent'
-              }`}
-              onClick={() => setIsSearchOpen(true)}
-            >
-              <Search className="h-5 w-5" />
-            </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hidden md:flex transition-colors duration-300 text-foreground hover:bg-accent"
+                  onClick={() => setIsSearchOpen(true)}
+                >
+                  <Search className="h-5 w-5" />
+                </Button>
+                
+                {/* Mobile Search Icon - next to heart */}
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="md:hidden transition-colors duration-300 text-foreground hover:bg-accent"
+                  onClick={() => setIsSearchOpen(true)}
+                >
+                  <Search className="h-5 w-5" />
+                </Button>
             
             {/* Wishlist Button */}
             <Link to="/wishlist">
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className={`relative transition-colors duration-300 ${
-                  isOverHero ? 'text-white hover:bg-white/10' : 'hover:bg-accent'
-                }`}
+                className="relative transition-colors duration-300 text-foreground hover:bg-accent"
               >
                 <Heart className="h-5 w-5" />
                 {wishlist.length > 0 && (
-                  <Badge 
-                    variant="secondary" 
-                    className={`absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs ${
-                      isOverHero ? 'bg-white text-black' : 'bg-foreground text-background'
-                    }`}
+                  <Badge
+                    variant="secondary"
+                    className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-foreground text-background"
                   >
                     {wishlist.length}
                   </Badge>
                 )}
               </Button>
             </Link>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className={`relative transition-colors duration-300 ${
-                isOverHero ? 'text-white hover:bg-white/10' : 'hover:bg-accent'
-              }`}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative transition-colors duration-300 text-foreground hover:bg-accent"
               onClick={() => setIsCartOpen(true)}
             >
               <ShoppingBag className="h-5 w-5" />
               {getTotalItems() > 0 && (
-                <Badge 
-                  variant="secondary" 
-                  className={`absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs ${
-                    isOverHero ? 'bg-white text-black' : 'bg-foreground text-background'
-                  }`}
+                <Badge
+                  variant="secondary"
+                  className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-foreground text-background"
                 >
                   {getTotalItems()}
                 </Badge>
@@ -176,35 +170,11 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Search */}
-        <div className={`md:hidden py-4 border-t transition-colors duration-300 ${
-          isOverHero ? 'border-white/20 bg-background/95' : 'border-border/50'
-        }`}>
-          <div className="relative">
-            <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 transition-colors duration-300 ${
-              isOverHero ? 'text-white/60' : 'text-muted-foreground'
-            }`} />
-            <Input
-              placeholder="Search..."
-              className={`pl-10 w-full rounded-full transition-colors duration-300 ${
-                isOverHero 
-                  ? 'border border-white/30 focus:border-white/50 bg-white/20 text-white placeholder:text-white/80' 
-                  : 'border border-border/50 focus:border-foreground/50 bg-background/50'
-              }`}
-              onClick={() => setIsSearchOpen(true)}
-              readOnly
-            />
-          </div>
-        </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className={`md:hidden backdrop-blur-md border-t transition-colors duration-300 ${
-          isOverHero 
-            ? 'bg-black/80 border-white/20' 
-            : 'bg-background/95 border-border/50'
-        }`}>
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden backdrop-blur-md border-t border-border/50 transition-colors duration-300 bg-white/95">
           <nav className="container mx-auto px-6 py-6 space-y-2">
             {categories.map((category) => {
               let hoverClass = "";
@@ -227,17 +197,13 @@ export const Header = () => {
               
               return (
                 <Link key={category} to={linkPath}>
-                  <Button
-                    variant="ghost"
-                    className={`w-full justify-start text-left font-light tracking-wide transition-colors duration-300 ${
-                      isOverHero 
-                        ? `text-white/90 ${hoverClass} ${activeClass}` 
-                        : `${hoverClass} ${activeClass}`
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {category}
-                  </Button>
+                      <Button
+                        variant="ghost"
+                        className={`w-full justify-start text-left font-light tracking-wide transition-colors duration-300 text-foreground ${hoverClass} ${activeClass}`}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {category}
+                      </Button>
                 </Link>
               );
             })}

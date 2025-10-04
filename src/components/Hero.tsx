@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLocale } from "@/contexts/LocaleContext";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   const { getText } = useLocale();
@@ -85,7 +86,7 @@ export const Hero = () => {
                 Cozy Nightwear Collection
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-light text-white mb-8 leading-tight tracking-wide">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-light text-white mb-8 leading-tight tracking-wide">
                 {getText('hero.title')}
               </h1>
               
@@ -93,39 +94,28 @@ export const Hero = () => {
                 {getText('hero.subtitle')}
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
-                <Button 
-                  size="lg" 
-                  className="bg-white text-foreground hover:bg-white/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
-                >
-                  {getText('hero.cta.primary')}
-                  <ArrowRight className="ml-3 h-5 w-5" />
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center md:justify-start">
+                <Link to="/shop-all">
+                  <Button 
+                    size="lg" 
+                    className="bg-white text-foreground hover:bg-white/90 px-6 sm:px-8 py-4 sm:py-6 rounded-none font-light tracking-wide transition-all duration-300 w-full sm:w-auto"
+                  >
+                    {getText('hero.cta.primary') || 'Shop Nightwear'}
+                    <ArrowRight className="ml-3 h-5 w-5" />
+                  </Button>
+                </Link>
                 
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="border border-white/30 text-white hover:bg-white hover:text-foreground px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
-                >
-                  {getText('hero.cta.secondary')}
-                </Button>
+                <Link to="/ladies">
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="border border-white/30 text-white hover:bg-white hover:text-foreground px-6 sm:px-8 py-4 sm:py-6 rounded-none font-light tracking-wide transition-all duration-300 w-full sm:w-auto"
+                  >
+                    {getText('hero.cta.secondary') || 'View Collections'}
+                  </Button>
+                </Link>
               </div>
 
-              {/* Trust indicators */}
-              <div className="flex items-center justify-center md:justify-start gap-8 mt-12 text-sm text-white/70 font-light">
-                <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  {getText('trust.freeShipping')}
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  {getText('trust.qualityGuaranteed')}
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                  {getText('trust.secureCheckout')}
-                </div>
-              </div>
             </div>
           </div>
         </div>

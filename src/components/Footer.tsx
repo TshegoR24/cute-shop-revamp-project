@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -7,6 +7,29 @@ import { useLocale } from "@/contexts/LocaleContext";
 export const Footer = () => {
   const { getText, config } = useLocale();
   const currentYear = new Date().getFullYear();
+
+  // Payment method icons mapping
+  const getPaymentIcon = (method: string) => {
+    switch (method.toLowerCase()) {
+      case 'visa':
+        return <div className="w-6 h-4 bg-blue-600 rounded text-white text-xs font-bold flex items-center justify-center">VISA</div>;
+      case 'mastercard':
+        return <div className="w-6 h-4 bg-gradient-to-r from-red-500 to-orange-500 rounded flex items-center justify-center">
+          <div className="w-3 h-3 bg-white rounded-full mr-1"></div>
+          <div className="w-3 h-3 bg-white rounded-full ml-1"></div>
+        </div>;
+      case 'amex':
+        return <div className="w-6 h-4 bg-blue-700 rounded text-white text-xs font-bold flex items-center justify-center">AMEX</div>;
+      case 'apple pay':
+        return <div className="w-6 h-4 bg-black rounded text-white text-xs font-medium flex items-center justify-center">🍎</div>;
+      case 'google pay':
+        return <div className="w-6 h-4 bg-white border border-gray-300 rounded text-black text-xs font-bold flex items-center justify-center">G</div>;
+      case 'discover':
+        return <div className="w-6 h-4 bg-orange-500 rounded text-white text-xs font-bold flex items-center justify-center">D</div>;
+      default:
+        return <CreditCard className="h-4 w-4 text-muted-foreground" />;
+    }
+  };
 
   return (
     <footer className="bg-muted/30 border-t border-border/50">
@@ -101,6 +124,22 @@ export const Footer = () => {
         </div>
 
         <Separator className="my-12 bg-border/50" />
+
+        {/* Payment Methods */}
+        <div className="text-center mb-8">
+          <h5 className="font-light tracking-wide mb-6 text-foreground">We Accept</h5>
+          <div className="flex flex-wrap justify-center gap-3">
+            {config.payment.methods.map((method) => (
+              <div
+                key={method}
+                className="flex items-center gap-2 px-4 py-2 bg-background border border-border rounded-full text-sm font-light text-foreground hover:bg-muted/50 transition-colors duration-200"
+              >
+                {getPaymentIcon(method)}
+                <span>{method}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">

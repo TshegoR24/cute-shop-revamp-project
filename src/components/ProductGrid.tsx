@@ -48,9 +48,9 @@ export const ProductGrid = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Reduced for faster rendering
   const [selectedGender, setSelectedGender] = useState<string>("All");
+  const [visibleProducts, setVisibleProducts] = useState(6); // Start with 6 products
+  const productsPerLoad = 6; // Load 6 more each time
 
   const categories = ["All", "Ladies", "Little Girls", "Sleepwear"];
   const genders = ["All", "Ladies", "Little Girls"];
@@ -88,16 +88,22 @@ export const ProductGrid = () => {
     }
   }, [sampleProducts, selectedCategories, selectedGender, sortBy]);
 
-  // Pagination
-  const totalPages = Math.ceil(filteredAndSortedProducts.length / itemsPerPage);
-  const paginatedProducts = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return filteredAndSortedProducts.slice(startIndex, startIndex + itemsPerPage);
-  }, [filteredAndSortedProducts, currentPage, itemsPerPage]);
+  // Display products based on visible count
+  const displayedProducts = useMemo(() => {
+    return filteredAndSortedProducts.slice(0, visibleProducts);
+  }, [filteredAndSortedProducts, visibleProducts]);
 
-  // Reset page when filters change
+  // Check if there are more products to load
+  const hasMoreProducts = visibleProducts < filteredAndSortedProducts.length;
+
+  // Load more products
+  const loadMoreProducts = useCallback(() => {
+    setVisibleProducts(prev => Math.min(prev + productsPerLoad, filteredAndSortedProducts.length));
+  }, [productsPerLoad, filteredAndSortedProducts.length]);
+
+  // Reset visible products when filters change
   useEffect(() => {
-    setCurrentPage(1);
+    setVisibleProducts(6);
   }, [selectedCategories, selectedGender, sortBy]);
 
   // Memoized callbacks for better performance
@@ -134,10 +140,10 @@ export const ProductGrid = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6 tracking-wide">
-            Sweet Dreams Collection
+            Featured Collection
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
-            Discover adorable nightwear for ladies, little girls, and little boys. 
+            Discover our handpicked selection of adorable nightwear for ladies, little girls, and little boys. 
             Cozy, comfortable, and absolutely cute!
           </p>
         </div>
@@ -218,67 +224,41 @@ export const ProductGrid = () => {
           </div>
         </div>
 
-        {/* Products Grid */}
-        <div className={`grid gap-8 ${
-          viewMode === "grid" 
-            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
-            : "grid-cols-1"
-        }`}>
-          {isLoading ? (
-            // Skeleton loaders
-            Array.from({ length: itemsPerPage }).map((_, index) => (
-              <div key={index} className="animate-pulse">
-                <div className="aspect-[4/5] bg-muted/30 rounded-lg mb-4"></div>
-                <div className="h-4 bg-muted/30 rounded mb-2"></div>
-                <div className="h-4 bg-muted/30 rounded w-2/3"></div>
-              </div>
-            ))
-          ) : (
-            paginatedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))
-          )}
-        </div>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-12">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </Button>
-            
-            <div className="flex gap-1">
-              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                const pageNum = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
-                return (
-                  <Button
-                    key={pageNum}
-                    variant={currentPage === pageNum ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentPage(pageNum)}
-                    className="w-10"
-                  >
-                    {pageNum}
-                  </Button>
-                );
-              })}
+            {/* Products Grid */}
+            <div className={`grid gap-8 ${
+              viewMode === "grid" 
+                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
+                : "grid-cols-1"
+            }`}>
+              {isLoading ? (
+                // Skeleton loaders
+                Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="animate-pulse">
+                    <div className="aspect-[4/5] bg-muted/30 rounded-lg mb-4"></div>
+                    <div className="h-4 bg-muted/30 rounded mb-2"></div>
+                    <div className="h-4 bg-muted/30 rounded w-2/3"></div>
+                  </div>
+                ))
+              ) : (
+                displayedProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              )}
             </div>
-            
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </Button>
-          </div>
-        )}
+
+            {/* Shop All Button */}
+            {hasMoreProducts && !isLoading && (
+              <div className="flex justify-center mt-12">
+                <Link to="/shop-all">
+                  <Button
+                    size="lg"
+                    className="bg-foreground text-background hover:bg-foreground/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300"
+                  >
+                    Shop All ({filteredAndSortedProducts.length - visibleProducts} more)
+                  </Button>
+                </Link>
+              </div>
+            )}
 
         {/* Enhanced View All Products Section */}
         <div className="text-center mt-16 space-y-6">
