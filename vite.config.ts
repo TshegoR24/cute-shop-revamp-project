@@ -22,19 +22,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['lucide-react'],
-          router: ['react-router-dom'],
-          radix: [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-select',
-            '@radix-ui/react-slot',
-            '@radix-ui/react-toast',
-            '@radix-ui/react-tooltip',
-          ],
-        },
+        manualChunks: undefined,
       },
     },
     chunkSizeWarningLimit: 800,
@@ -46,14 +34,9 @@ export default defineConfig(({ mode }) => ({
         pure_funcs: ['console.log', 'console.info', 'console.debug'],
         passes: 2,
       },
-      mangle: {
-        properties: {
-          regex: /^_/,
-        },
-      },
     },
     target: 'es2020',
-    cssCodeSplit: true,
+    cssCodeSplit: false,
     sourcemap: false,
   },
   optimizeDeps: {

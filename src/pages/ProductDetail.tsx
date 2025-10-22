@@ -1,25 +1,29 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, Heart, Star, Truck, RotateCcw, Shield, ShoppingBag, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Heart, Star, Truck, RotateCcw, Shield, ShoppingBag, Minus, Plus, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { allProducts } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { shopifyHelpers } from "@/lib/shopify";
 import { useLocale } from "@/contexts/LocaleContext";
+import { useCart } from "@/contexts/CartContext";
 
 export const ProductDetail = () => {
   const { id } = useParams();
   const { formatCurrency } = useLocale();
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+  
+  // Find product by ID
+  const product = allProducts.find(p => p.id === parseInt(id || "1")) || allProducts[0];
+  
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState(product.defaultSize || "");
+  const [selectedColor, setSelectedColor] = useState(product.defaultColor || "");
   const [quantity, setQuantity] = useState(1);
   const [shopifyProduct, setShopifyProduct] = useState<any>(null);
   const [relatedProducts, setRelatedProducts] = useState(allProducts.slice(0, 4));
-
-  // Find product by ID
-  const product = allProducts.find(p => p.id === parseInt(id || "1")) || allProducts[0];
 
   // Fetch Shopify product data
   useEffect(() => {
@@ -59,15 +63,21 @@ export const ProductDetail = () => {
     }
   }, [product]);
 
-  // Mock additional product data
-  const productImages = [
-    product.image,
-    "/optimized/DSC08531 (1).jpg",
-    "/optimized/DSC08533 (1).jpg", 
-    "/optimized/DSC08537 (1).jpg",
-    "/optimized/DSC08540 (1).jpg",
-    "/optimized/DSC08555.jpg"
-  ];
+  // Use product-specific data
+  const productImages = product.thumbnails || [product.image];
+  
+  // Get current image based on selected color or thumbnail
+  const getCurrentImage = () => {
+    // If a color is selected, find the variant image
+    if (selectedColor && product.variants) {
+      const selectedVariant = product.variants.find(v => v.color === selectedColor);
+      if (selectedVariant) {
+        return selectedVariant.image;
+      }
+    }
+    // Otherwise use the selected thumbnail
+    return productImages[selectedImage];
+  };
 
   const discountPercentage = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -80,43 +90,37 @@ export const ProductDetail = () => {
       <div className="container mx-auto px-6 py-8">
         {/* Breadcrumb */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+          <button 
+            onClick={() => navigate(-1)} 
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+          >
             <ArrowLeft className="h-4 w-4" />
             Back to Shop
-          </Link>
+          </button>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Product Images */}
           <div className="space-y-6">
-            {/* Thumbnail Gallery */}
-            <div className="flex flex-col gap-4">
-              {productImages.map((image, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`aspect-square w-20 bg-muted/30 rounded-lg overflow-hidden transition-all ${
-                    selectedImage === index 
-                      ? "ring-2 ring-foreground" 
-                      : "hover:ring-2 ring-foreground/50"
-                  }`}
-                >
-                  <img 
-                    src={image} 
-                    alt={`Product view ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-
             {/* Main Image */}
-            <div className="aspect-square bg-muted/30 rounded-lg overflow-hidden relative">
+            <div className="aspect-square bg-muted/30 rounded-lg overflow-hidden relative group cursor-pointer">
               <img 
-                src={productImages[selectedImage]} 
+                src={getCurrentImage()} 
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                onClick={() => {
+                  // Cycle through thumbnails when clicking main image
+                  setSelectedImage((prev) => (prev + 1) % productImages.length);
+                  setSelectedColor("");
+                }}
               />
+              
+              {/* Click indicator */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-2">
+                  <Eye className="h-4 w-4 text-foreground" />
+                </div>
+              </div>
               
               {/* Badges */}
               <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -136,6 +140,61 @@ export const ProductDetail = () => {
                 <Badge className="absolute top-4 right-4 bg-red-500 text-white font-light tracking-wide px-3 py-1">
                   Sold Out
                 </Badge>
+              )}
+            </div>
+
+            {/* Thumbnail Gallery */}
+            <div className="relative">
+              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                {productImages.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelectedImage(index);
+                      // Reset color selection when clicking thumbnails to show the thumbnail image
+                      setSelectedColor("");
+                    }}
+                    className={`flex-shrink-0 aspect-square w-20 bg-muted/30 rounded-lg overflow-hidden transition-all cursor-pointer ${
+                      selectedImage === index 
+                        ? "ring-2 ring-foreground" 
+                        : "hover:ring-2 ring-foreground/50 hover:scale-105"
+                    }`}
+                  >
+                    <img 
+                      src={image} 
+                      alt={`Product view ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-200 hover:scale-110"
+                    />
+                  </button>
+                ))}
+              </div>
+              
+              {/* Navigation arrows for thumbnails */}
+              {productImages.length > 4 && (
+                <>
+                  <button
+                    onClick={() => {
+                      const container = document.querySelector('.scrollbar-hide');
+                      if (container) {
+                        container.scrollLeft -= 100;
+                      }
+                    }}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-1 shadow-md transition-all duration-200 hover:scale-110"
+                  >
+                    <ArrowLeft className="h-4 w-4 text-foreground" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      const container = document.querySelector('.scrollbar-hide');
+                      if (container) {
+                        container.scrollLeft += 100;
+                      }
+                    }}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-1 shadow-md transition-all duration-200 hover:scale-110"
+                  >
+                    <ArrowLeft className="h-4 w-4 text-foreground rotate-180" />
+                  </button>
+                </>
               )}
             </div>
 
@@ -200,41 +259,30 @@ export const ProductDetail = () => {
             </div>
 
             {/* Color Selection */}
-            <div>
-              <h3 className="text-lg font-light mb-3">Color: Black</h3>
-              <div className="flex gap-3">
-                <button
-                  className={`w-10 h-10 rounded-full border-2 transition-all ${
-                    selectedColor === "black"
-                      ? "border-foreground ring-2 ring-foreground/20"
-                      : "border-border hover:border-foreground/50"
-                  }`}
-                  onClick={() => setSelectedColor("black")}
-                >
-                  <div className="w-full h-full rounded-full bg-black"></div>
-                </button>
-                <button
-                  className={`w-10 h-10 rounded-full border-2 transition-all ${
-                    selectedColor === "pink"
-                      ? "border-foreground ring-2 ring-foreground/20"
-                      : "border-border hover:border-foreground/50"
-                  }`}
-                  onClick={() => setSelectedColor("pink")}
-                >
-                  <div className="w-full h-full rounded-full bg-pink-300"></div>
-                </button>
-                <button
-                  className={`w-10 h-10 rounded-full border-2 transition-all ${
-                    selectedColor === "lavender"
-                      ? "border-foreground ring-2 ring-foreground/20"
-                      : "border-border hover:border-foreground/50"
-                  }`}
-                  onClick={() => setSelectedColor("lavender")}
-                >
-                  <div className="w-full h-full rounded-full bg-purple-300"></div>
-                </button>
+            {product.variants && product.variants.length > 0 && (
+              <div>
+                <h3 className="text-lg font-light mb-3">Color: {selectedColor || product.defaultColor}</h3>
+                <div className="flex gap-3 flex-wrap">
+                  {product.variants.map((variant) => (
+                    <button
+                      key={variant.color}
+                      className={`w-10 h-10 rounded-full border-2 transition-all ${
+                        selectedColor === variant.color
+                          ? "border-foreground ring-2 ring-foreground/20"
+                          : "border-border hover:border-foreground/50"
+                      }`}
+                      onClick={() => setSelectedColor(variant.color)}
+                      title={variant.name}
+                    >
+                      <div 
+                        className="w-full h-full rounded-full" 
+                        style={{ backgroundColor: variant.colorCode }}
+                      ></div>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Size Guide Link */}
             <div>
@@ -244,27 +292,34 @@ export const ProductDetail = () => {
             </div>
 
             {/* Size Selection */}
-            <div>
-              <h3 className="text-lg font-light mb-3">Size: S</h3>
-              <div className="flex flex-wrap gap-3">
-                {["XS", "S", "M", "L", "XL", "2XL", "3XL"].map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`w-12 h-12 border rounded-none transition-all font-light ${
-                      selectedSize === size
-                        ? "border-foreground bg-foreground text-background"
-                        : "border-border hover:border-foreground/50"
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            {product.sizes && product.sizes.length > 0 && (
+              <div>
+                <h3 className="text-lg font-light mb-3">Size: {selectedSize || product.defaultSize}</h3>
+                <div className="flex flex-wrap gap-3">
+                  {product.sizes.map((sizeOption) => (
+                    <button
+                      key={sizeOption.size}
+                      onClick={() => setSelectedSize(sizeOption.size)}
+                      disabled={!sizeOption.available}
+                      className={`w-12 h-12 border rounded-none transition-all font-light ${
+                        selectedSize === sizeOption.size
+                          ? "border-foreground bg-foreground text-background"
+                          : sizeOption.available
+                          ? "border-border hover:border-foreground/50"
+                          : "border-border/30 bg-muted/30 text-muted-foreground cursor-not-allowed"
+                      }`}
+                    >
+                      {sizeOption.size}
+                    </button>
+                  ))}
+                </div>
+                {selectedSize && (
+                  <p className="text-sm text-muted-foreground mt-2 font-light">
+                    {product.sizes.find(s => s.size === selectedSize)?.measurements}
+                  </p>
+                )}
               </div>
-              <p className="text-sm text-muted-foreground mt-2 font-light">
-                Fits sizes: 6-8 | Waist: 26-29 in, Hips: 35.5-38 in
-              </p>
-            </div>
+            )}
 
             {/* Quantity Selector */}
             <div>
@@ -300,6 +355,14 @@ export const ProductDetail = () => {
                 size="lg"
                 className="w-full bg-foreground text-background hover:bg-foreground/90 px-8 py-6 rounded-none font-light tracking-wide transition-all duration-300 text-lg"
                 disabled={product.isSoldOut}
+                onClick={() => {
+                  // Add the product to cart with selected options
+                  for (let i = 0; i < quantity; i++) {
+                    addToCart(product, selectedSize, selectedColor);
+                  }
+                  // Show success feedback (you could add a toast here)
+                  console.log(`Added ${quantity} ${product.name} to cart`);
+                }}
               >
                 <ShoppingBag className="mr-2 h-5 w-5" />
                 {product.isSoldOut ? "SOLD OUT" : "ADD TO CART"}
@@ -346,16 +409,20 @@ export const ProductDetail = () => {
         </div>
 
         {/* Product Description Section */}
-        {shopifyProduct?.description && (
+        {(product.description || shopifyProduct?.description) && (
           <div className="mt-16 pt-16 border-t border-border/50">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-light text-foreground mb-8 tracking-wide">
                 Product Description
               </h2>
-              <div 
-                className="prose prose-sm max-w-none text-muted-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: shopifyProduct.description }}
-              />
+              <div className="prose prose-sm max-w-none text-muted-foreground leading-relaxed">
+                {product.description && (
+                  <p className="text-lg leading-relaxed">{product.description}</p>
+                )}
+                {shopifyProduct?.description && (
+                  <div dangerouslySetInnerHTML={{ __html: shopifyProduct.description }} />
+                )}
+              </div>
             </div>
           </div>
         )}
